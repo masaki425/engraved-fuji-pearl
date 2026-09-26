@@ -82,7 +82,7 @@
   .viewer input[type=range] { width: 100%; accent-color: var(--accent); margin: 16px 0 4px; }
   .readout { font-weight: 700; font-variant-numeric: tabular-nums; }
 
-  .grid8 { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin-top: 16px; }
+  .grid8 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; margin-top: 16px; }
   .grid8 button { padding: 0; border: 2px solid transparent; border-radius: 10px; background: none; cursor: pointer; }
   .grid8 button[aria-current="true"] { border-color: var(--accent); }
   .grid8 img { border-radius: 8px; }
@@ -104,7 +104,7 @@
   @media (max-width: 640px) {
     header { padding-top: 32px; }
     .pair, .dl { grid-template-columns: 1fr; }
-    .grid8 { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .grid8 { grid-template-columns: repeat(6, 1fr); gap: 4px; }
   }
 </style>
 </head>
@@ -121,7 +121,7 @@
     <h2>一周させて見る</h2>
     <figure class="square">
       <video id="turntable" src="media/turntable.mp4" poster="media/view_az000.webp" controls loop muted playsinline preload="metadata" width="960" height="960"></video>
-      <figcaption>俯角 45° のカメラで作品の周りを一周する動画（8 秒）。0° で赤富士、180° の真後ろで少女（左右反転）が現れ、その間はどちらの絵にも見えない。</figcaption>
+      <figcaption>俯角 45° のカメラで作品の周りを一周する動画（8 秒）。0° で赤富士、180° の真後ろで少女（左右反転）が現れる。その間は、絵が歪みながら入れ替わり、真横の前後では 2 つの絵が混ざって見える。</figcaption>
     </figure>
   </section>
 
@@ -158,10 +158,10 @@
   </section>
 
   <section>
-    <h2>45° ごとの見え方</h2>
+    <h2>15° ごとの見え方</h2>
     <div class="viewer">
       <img id="az-main" class="main" src="media/view_az000.webp" alt="方位0度から見た作品" width="1200" height="1200">
-      <input id="az-range" type="range" min="0" max="7" step="1" value="0" aria-label="方位">
+      <input id="az-range" type="range" min="0" max="23" step="1" value="0" aria-label="方位">
       <p style="margin-top:8px">方位 <span class="readout" id="az-readout">0°</span> <span id="az-note" style="color:var(--muted)"></span></p>
       <div class="grid8" id="az-grid"></div>
     </div>
@@ -181,7 +181,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     <div class="pair" style="margin-top:16px">
       <figure>
         <img src="media/oblique.webp" alt="斜めから見た実際の彫り。波打つ面に細い溝が並ぶ" loading="lazy" width="1400" height="1050">
-        <figcaption>斜めから見た実際の彫り。どちらの絵にも見えない。</figcaption>
+        <figcaption>斜めから見た実際の彫り。波打つ面に細い溝が並び、赤富士は大きく歪んで見える。</figcaption>
       </figure>
       <figure>
         <img src="media/top_view.webp" alt="真上から見た彫り" loading="lazy" width="1400" height="1750">
@@ -297,8 +297,18 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
 </div>
 
 <script>
-  const AZ = [0, 45, 90, 135, 180, 225, 270, 315];
-  const NOTE = { 0: "— 手前から（赤富士）", 180: "— 真後ろから直接（少女・左右反転）" };
+  const AZ = Array.from({ length: 24 }, (_, i) => i * 15);
+  // 方位ごとの見え方（24 方向のレンダリングを見て分類）
+  function noteFor(a) {
+    const d = Math.min(a, 360 - a);            // 手前からのずれ（0〜180°）
+    if (d === 0) return "— 手前から（赤富士）";
+    if (d <= 30) return "— 赤富士（少し傾いて見える）";
+    if (d <= 75) return "— 赤富士が斜めに歪む";
+    if (d <= 120) return "— 2 つの絵が混ざって見える";
+    if (d <= 135) return "— 少女が歪んで現れる";
+    if (d < 180) return "— 少女（少し傾き、左右反転）";
+    return "— 真後ろから直接（少女・左右反転）";
+  }
   const main = document.getElementById("az-main");
   const range = document.getElementById("az-range");
   const readout = document.getElementById("az-readout");
@@ -320,7 +330,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     main.src = `media/view_az${pad(a)}.webp`;
     main.alt = `方位${a}度から見た作品`;
     readout.textContent = `${a}°`;
-    note.textContent = NOTE[a] || "— どちらの絵にも見えない";
+    note.textContent = noteFor(a);
     [...grid.children].forEach((b, j) => b.setAttribute("aria-current", j === +i ? "true" : "false"));
   }
   range.addEventListener("input", () => show(range.value));
