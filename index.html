@@ -217,15 +217,47 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
 
   <section>
     <h2>寸法</h2>
-    <p>直方体 244 × 327 × 64 mm、絵の部分 200 × 283 mm（どちらから見ても 200 mm 角の正方形に見えます）。溝は 220 本、幅 0.5 mm・深さ 1.2 mm、溝の間の面は最も狭い所で 0.22 mm です。等倍で刷るなら光造形（レジン）の 3D プリンターが向いています。造形後、溝に墨を流し込んで表面を拭き取ります。</p>
+    <p>直方体 244 × 327 × 64 mm、絵の部分 200 × 283 mm（どちらから見ても 200 mm 角の正方形に見えます）。溝は 220 本、幅 0.5 mm・深さ 1.2 mm、溝の間の面は最も狭い所で 0.22 mm です。この大きさで刷るなら光造形（レジン）の 3D プリンターが向いています。家庭用の熱溶解プリンター向けに縮めた版は、<a href="#print">ページの一番下</a>にあります。</p>
   </section>
 
   <section>
-    <h2>ファイル</h2>
-    <p>レンダリングに使った Blender ファイルと、3D プリント用の STL です。.blend にはカメラ 6 台（手前・奥・鏡を入れた展示・斜め・真上・周回）と、鏡・照明が入っています。</p>
+    <h2>ファイル（光造形・大判版）</h2>
+    <p>このページのレンダリングに使った大判版（244 × 327 mm）の Blender ファイルと STL です。家庭用 3D プリンター向けの版とデータ一式は、<a href="#print">ページの一番下</a>にあります。.blend にはカメラ 6 台（手前・奥・鏡を入れた展示・斜め・真上・周回）と、鏡・照明が入っています。</p>
     <div class="dl">
       <a href="downloads/engraved_fuji_pearl.blend" download><strong>engraved_fuji_pearl.blend</strong><span>Blender 5.2 · 21 MB</span></a>
       <a href="downloads/engraved_fuji_pearl_stl.zip" download><strong>engraved_fuji_pearl_stl.zip</strong><span>STL（単位 mm、一体の閉じた立体、約 70 万頂点）· 22 MB</span></a>
+    </div>
+  </section>
+
+  <section id="print">
+    <h2>3D プリンター用の設定（Bambu Lab P1S）</h2>
+    <p>家庭用の熱溶解プリンター Bambu Lab P1S（造形エリア 256 × 256 × 256 mm）で刷れるように、実寸で設計し直した版です。どちらも直方体 180 × 246 mm で、絵の部分は 160 mm 角の正方形に見えます。<strong>スライサーで拡大・縮小しないでください。</strong>溝の幅がノズルに合わなくなります。</p>
+    <div class="scroll">
+      <table>
+        <tr><th></th><th>0.4 mm ノズル版（標準）</th><th>0.2 mm ノズル版（別売ノズル）</th></tr>
+        <tr><td>大きさ</td><td>180 × 246 × 47 mm</td><td>180 × 246 × 48 mm</td></tr>
+        <tr><td>溝</td><td>100 本・幅 0.6・深さ 1.0 mm</td><td>190 本・幅 0.35・深さ 0.8 mm</td></tr>
+        <tr><td>溝の間の面（最小）</td><td>0.69 mm</td><td>0.32 mm</td></tr>
+        <tr><td>積層ピッチ</td><td>0.12 mm</td><td>0.08 mm</td></tr>
+        <tr><td>壁生成・壁の本数</td><td colspan="2">Arachne（既定）・2</td></tr>
+        <tr><td>インフィル</td><td colspan="2">10〜15 %</td></tr>
+        <tr><td>サポート・ブリム</td><td colspan="2">不要（反る場合のみブリム）</td></tr>
+        <tr><td>材料</td><td colspan="2">マット PLA（木地色・ベージュなど明るい色）</td></tr>
+        <tr><td>見る距離</td><td>1.5 m 以上</td><td>1〜2 m</td></tr>
+      </table>
+    </div>
+    <ul>
+      <li><strong>置き方：</strong>彫った面を上にして平らに置き、長い辺（246 mm）をベッドの前後方向に合わせます。上面はどこも真上から見える形なので、オーバーハングはありません。</li>
+      <li><strong>積層の筋：</strong>緩い斜面には、積層の段差が等高線のような筋になって出ます。可変積層ピッチで上面付近を細かくすると目立ちにくくなります。</li>
+      <li><strong>墨入れ：</strong>造形後、溝に黒のアクリル絵の具（または墨）を流し込み、乾く前に固く絞った布で表面を拭き取ります。溝の中だけが黒く残ります。</li>
+      <li><strong>確認してほしいこと：</strong>造形時間と材料の量は、作者の環境ではスライスして確かめていません。刷る前に Bambu Studio で確認してください。初めての場合は、絵の一部を 50 mm 角ほど切り出して試し刷りすると安全です。</li>
+    </ul>
+    <div class="dl" style="margin-top:16px">
+      <a href="downloads/engraved_fuji_pearl_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 engraved_fuji_pearl_kit.zip</strong><span>STL 3 種（P1S 0.4 mm・P1S 0.2 mm・光造形）、印刷設定の説明（README）、設計スクリプト、元の絵 · 53 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n04_stl.zip" download><strong>P1S 0.4 mm ノズル版 STL</strong><span>engraved_fuji_pearl_p1s_n04.stl（zip）· 10 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n02_stl.zip" download><strong>P1S 0.2 mm ノズル版 STL</strong><span>engraved_fuji_pearl_p1s_n02.stl（zip）· 20 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n04.blend" download><strong>P1S 0.4 mm ノズル版 .blend</strong><span>Blender 5.2 · 9 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n02.blend" download><strong>P1S 0.2 mm ノズル版 .blend</strong><span>Blender 5.2 · 18 MB</span></a>
     </div>
   </section>
 
