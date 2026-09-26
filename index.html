@@ -238,9 +238,9 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
   <section id="print">
     <h2>3D プリンター用の設定（Bambu Lab P1S）</h2>
     <p>家庭用の熱溶解プリンター Bambu Lab P1S（造形エリア 256 × 256 × 256 mm）で刷れるように、実寸で設計し直した版です。どれも直方体 180 × 246 mm で、絵の部分は 160 mm 角の正方形に見えます。<strong>スライサーで拡大・縮小しないでください。</strong>溝の幅がノズルに合わなくなります。</p>
-    <h3 style="font-size:1.05rem;margin:20px 0 8px">おすすめ：溝の幅を変えた版</h3>
+    <h3 style="font-size:1.05rem;margin:20px 0 8px">溝の幅を変えた版</h3>
     <p>暗い所ほど溝を太く、明るい所ほど細くして、線の太さでも濃淡を出す版です。太さで濃淡が出るぶん線の粗密の差を小さくでき、起伏がほぼ半分（−11〜+9 mm）に浅くなりました。起伏の陰影がもう一方の絵に透けにくくなり、とくに鏡の中の少女の顔（目・鼻筋・唇）が読みやすくなります。標準の 0.4 mm ノズル用（溝 100 本）と、別売の 0.2 mm ノズル用（溝 190 本）があります。</p>
-    <p>材料は<strong>白のマット PLA</strong>がおすすめです。墨の線との対比が大きくなります。</p>
+    <p>材料を<strong>白のマット PLA</strong>にすると、墨の線との対比が大きくなります。</p>
     <figure>
       <img src="media/p1s_const_vs_vw.webp" alt="溝の幅が一定の版と、幅を変えた版の見え方の比較" loading="lazy" width="2000" height="1880">
       <figcaption>白い PLA ＋墨入れを、人の目の細かさ（1 画素 = 1 分角）で描いたシミュレーション。左から見る距離 1.5 m／2 m／3 m。上段：溝の幅が一定の版、下段：溝の幅を変えた版（いずれも 0.4 mm ノズル）。いずれもシミュレーションで、実物では試していません。</figcaption>
@@ -251,7 +251,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     </figure>
     <div class="scroll">
       <table>
-        <tr><th></th><th>幅を変えた版・0.4 mm ノズル（おすすめ）</th><th>幅を変えた版・0.2 mm ノズル</th><th>幅一定・0.4 mm ノズル</th><th>幅一定・0.2 mm ノズル</th></tr>
+        <tr><th></th><th>幅を変えた版・0.4 mm ノズル</th><th>幅を変えた版・0.2 mm ノズル</th><th>幅一定・0.4 mm ノズル</th><th>幅一定・0.2 mm ノズル</th></tr>
         <tr><td>大きさ</td><td>180 × 246 × 26 mm</td><td>180 × 246 × 25 mm</td><td>180 × 246 × 43 mm</td><td>180 × 246 × 43 mm</td></tr>
         <tr><td>溝</td><td>100 本・幅 0.63〜1.34・深さ 1.0 mm</td><td>190 本・幅 0.40〜0.73・深さ 0.8 mm</td><td>100 本・幅 0.6・深さ 1.0 mm</td><td>190 本・幅 0.35・深さ 0.8 mm</td></tr>
         <tr><td>溝の間の面（最小）</td><td>0.61 mm</td><td>0.33 mm</td><td>0.71 mm</td><td>0.33 mm</td></tr>
@@ -260,7 +260,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
         <tr><td>壁生成・壁の本数</td><td colspan="4">Arachne（既定）・2</td></tr>
         <tr><td>インフィル</td><td colspan="4">10〜15 %</td></tr>
         <tr><td>サポート・ブリム</td><td colspan="4">不要（反る場合のみブリム）</td></tr>
-        <tr><td>材料</td><td colspan="4">白のマット PLA がおすすめ（木地色・ベージュも可）</td></tr>
+        <tr><td>材料</td><td colspan="4">白のマット PLA（木地色・ベージュも可）</td></tr>
         <tr><td>見る距離</td><td>1.5〜3 m</td><td>1.5〜3 m（近めでもなめらか）</td><td>2 m 以上</td><td>1.5〜3 m</td></tr>
       </table>
     </div>
@@ -272,7 +272,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     </ul>
     <div class="dl" style="margin-top:16px">
       <a href="downloads/engraved_fuji_pearl_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 engraved_fuji_pearl_kit.zip</strong><span>溝の幅を変えた版の STL 2 種（0.4 mm・0.2 mm ノズル）、印刷設定の説明（README）、設計スクリプト、元の絵 · 31 MB。幅一定の版は下から単体で</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n04_vw_stl.zip" download><strong>幅を変えた版・0.4 mm STL（おすすめ）</strong><span>engraved_fuji_pearl_p1s_n04_vw.stl（zip）· 10 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n04_vw_stl.zip" download><strong>幅を変えた版・0.4 mm STL</strong><span>engraved_fuji_pearl_p1s_n04_vw.stl（zip）· 10 MB</span></a>
       <a href="downloads/engraved_fuji_pearl_p1s_n04_vw.blend" download><strong>幅を変えた版・0.4 mm .blend</strong><span>Blender 5.2 · 9 MB</span></a>
       <a href="downloads/engraved_fuji_pearl_p1s_n02_vw_stl.zip" download><strong>幅を変えた版・0.2 mm STL</strong><span>engraved_fuji_pearl_p1s_n02_vw.stl（zip）· 20 MB</span></a>
       <a href="downloads/engraved_fuji_pearl_p1s_n02_vw.blend" download><strong>幅を変えた版・0.2 mm .blend</strong><span>Blender 5.2 · 18 MB</span></a>
