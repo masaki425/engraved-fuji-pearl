@@ -114,7 +114,8 @@
     <p class="eyebrow">ENGRAVED METAMORPHOSIS · 線刻の変身画</p>
     <h1>赤富士が、鏡の中で<br>真珠の耳飾りの少女になる</h1>
     <p class="lead">直方体の上面に細い溝を 190 本彫り、墨を入れただけの立体です。手前から見ると葛飾北斎「凱風快晴」、後ろに立てた鏡の中ではフェルメール「真珠の耳飾りの少女」が、線刻の版画として浮かび上がります。塗りは地色と墨だけで、見る向きによる塗り分けはありません。絵が入れ替わるのは、溝の立体的な形のためです。</p>
-    <p class="lead" style="margin-top:12px"><strong style="color:var(--ink)">家庭用の 3D プリンター（Bambu Lab P1S）で刷れるように最適化した設計です。</strong>大きさ 180 × 246 × 30 mm、溝の幅と溝の間の壁の厚さはノズルに合わせてあり、サポートなしで刷れます。造形データは<a href="#print">ページの一番下</a>からダウンロードできます。</p>
+    <p class="lead" style="margin-top:12px"><strong style="color:var(--ink)">家庭用の 3D プリンター（Bambu Lab P1S）で刷れるように最適化した設計です。</strong>大きさ 180 × 246 × 30 mm、溝の幅と溝の間の壁の厚さはノズルに合わせてあり、サポートなしで刷れます。造形データは<a href="#print">ページの下</a>からダウンロードできます。</p>
+    <p class="lead" style="margin-top:12px"><strong style="color:var(--ink)">新作：</strong>同じ手法の 2 枚組「星月夜 ⇄ 雷神」「ローヌ川の星月夜 ⇄ 風神」を<a href="#pair">ページの最後</a>に追加しました。鏡の中に、俵屋宗達の風神雷神図屏風が現れます。</p>
   </header>
 
   <section>
@@ -290,8 +291,55 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     </div>
   </section>
 
+  <section id="pair">
+    <p class="eyebrow" style="margin-bottom:4px">NEW · 第 3 弾</p>
+    <h2>2 枚組「星月夜 ⇄ 雷神」「ローヌ川の星月夜 ⇄ 風神」</h2>
+    <p>同じ変身立体の原理で作った 2 枚組です。左に置く 1 枚は手前から見るとゴッホ「星月夜」、右に置く 1 枚は「ローヌ川の星月夜」。2 枚を並べて奥に鏡を立てると、鏡の中には俵屋宗達「風神雷神図屏風」の雷神（左）と風神（右）が、元の屏風と同じ並びで現れます。鏡は奥行きだけを反転するので、左右は入れ替わりません。</p>
+    <div class="pair">
+      <figure>
+        <img src="media/pair_mirror_showcase.webp" alt="手前に 2 つの星月夜、奥の鏡の中に雷神と風神が並ぶ展示写真" loading="lazy" width="1400" height="1750">
+        <figcaption>2 枚の間を 3 cm あけて並べ、奥に鏡を 1 枚立てた展示写真（Blender で実寸の立体を描いたもの）。</figcaption>
+      </figure>
+      <div>
+        <figure>
+          <img src="media/pair_in_mirror.webp" alt="鏡の中の像。左に雷神、右に風神" loading="lazy" width="1600" height="800">
+          <figcaption>鏡の中だけを拡大したもの。金地の余白を残し、二神が外側から中央の空白を挟んで向き合います。</figcaption>
+        </figure>
+        <figure style="margin-top:16px">
+          <img src="media/pair_front.webp" alt="手前から見た 2 枚。左に星月夜、右にローヌ川の星月夜" loading="lazy" width="1600" height="651">
+          <figcaption>手前から見た 2 枚（左：星月夜、右：ローヌ川の星月夜）。</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p style="margin-top:16px">赤富士の版と違い、溝は<strong>等間隔</strong>で、上面の起伏はほぼありません（±0.2 mm）。明暗は、溝と溝の間の面の「見かけの幅」だけで描きます。面の手前の縁と奥の縁の高さを少し変えると、手前での見かけの幅と鏡での見かけの幅を別々に決められるので、片方の絵がもう一方に透けません。色と筆のタッチで描かれた星月夜の渦や星も、この方式で出せるようになりました。厚さ 5 mm の薄い板なので、刷る時間も 1 枚約 4 時間半（0.4 mm ノズル・単色）で済みます。</p>
+    <div class="scroll" style="margin-top:8px">
+      <table>
+        <tr><th></th><th>0.4 mm ノズル用（標準）</th><th>0.2 mm ノズル用</th></tr>
+        <tr><td>大きさ（1 枚）</td><td>215.7 × 239.1 × 5.2 mm</td><td>215.7 × 239.1 × 4.9 mm</td></tr>
+        <tr><td>絵の部分（見かけ）</td><td colspan="2">206 × 162 mm</td></tr>
+        <tr><td>溝</td><td>119 本・等間隔・深さ 1.0 mm</td><td>198 本・等間隔・深さ 0.8 mm</td></tr>
+        <tr><td>最も細い溝 / 溝の間の面</td><td>0.50 mm / 0.53 mm</td><td>0.35 mm / 0.31 mm</td></tr>
+        <tr><td>工程・積層ピッチ</td><td>0.12mm Fine・0.12 mm</td><td>0.08mm High Quality・0.08 mm</td></tr>
+        <tr><td>造形時間の目安（1 枚）</td><td>単色 約 4.6 時間、AMS 2 色 約 8〜9 時間</td><td>単色 約 24 時間</td></tr>
+        <tr><td>設定</td><td colspan="2">Arachne・インフィル 15 %・サポートなし・外側ブリム 3 mm（単色）・明るい色のマット PLA</td></tr>
+      </table>
+    </div>
+    <ul>
+      <li><strong>実寸で設計しています。</strong>スライサーで拡大・縮小しないでください。</li>
+      <li><strong>置き方：</strong>彫った面を上にして平らに置きます。板は台いっぱいなので、台の左手前の使えない区画にかからないよう、中央より右に寄せます（Bambu Studio 用のプロジェクトはその位置に置いてあります）。</li>
+      <li><strong>AMS で 2 色に刷る場合：</strong>プロジェクト 3MF を開くと、溝が黒・地がベージュに塗られています。そのままスライスでき、墨入れが要りません。単色で刷った場合は、赤富士の版と同じく溝に墨を入れます。</li>
+      <li><strong>確認してほしいこと：</strong>Bambu Studio でスライスして警告が出ないこと、G-code 上で溝がふさがらないことは確かめましたが、実物はまだ刷っていません。</li>
+    </ul>
+    <div class="dl" style="margin-top:16px">
+      <a href="downloads/starry_fujin_raijin_pair_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 starry_fujin_raijin_pair_kit.zip</strong><span>STL 4 つ（2 枚 × 0.4 mm・0.2 mm ノズル）、Bambu Studio 用プロジェクト 4 つ、説明（README）、設計スクリプト、元の絵 · 66 MB</span></a>
+      <a href="downloads/starry_fujin_raijin_pair_n04_stl.zip" download><strong>0.4 mm ノズル用 STL（2 枚）</strong><span>pair_starry_raijin・pair_rhone_fujin（zip）· 16 MB</span></a>
+      <a href="downloads/starry_fujin_raijin_pair_n02_stl.zip" download><strong>0.2 mm ノズル用 STL（2 枚）</strong><span>同じ 2 枚の 0.2 mm 用（zip）· 20 MB</span></a>
+      <a href="downloads/starry_fujin_raijin_pair_bambu_projects.zip" download style="grid-column: 1 / -1"><strong>Bambu Studio 用プロジェクト（2 色に塗った 3MF）</strong><span>2 枚 × 0.4 mm・0.2 mm ノズル、P1S 用の設定入り（zip）· 22 MB</span></a>
+    </div>
+  </section>
+
   <footer>
-    <p>錯視の原理：杉原厚吉「変身立体」（<a href="https://www.isc.meiji.ac.jp/~kokichis/ambiguousc/ambiguouscylinderj.html">解説ページ</a>）。元の絵はいずれもパブリックドメインです（Wikimedia Commons）：葛飾北斎「冨嶽三十六景 凱風快晴」、ヨハネス・フェルメール「真珠の耳飾りの少女」。溝の設計と彫りの形状は、このページのために新たに作ったものです。</p>
+    <p>錯視の原理：杉原厚吉「変身立体」（<a href="https://www.isc.meiji.ac.jp/~kokichis/ambiguousc/ambiguouscylinderj.html">解説ページ</a>）。元の絵はいずれもパブリックドメインです（Wikimedia Commons）：葛飾北斎「冨嶽三十六景 凱風快晴」、ヨハネス・フェルメール「真珠の耳飾りの少女」、フィンセント・ファン・ゴッホ「星月夜」「ローヌ川の星月夜」、俵屋宗達「風神雷神図屏風」。溝の設計と彫りの形状は、このページのために新たに作ったものです。</p>
     <p>関連：<a href="https://masaki425.github.io/ambiguous-cylinder/">見る向きで四角と丸が入れ替わる柱体</a></p>
   </footer>
 </div>
