@@ -128,191 +128,19 @@
 
   <section>
     <h2>手前から見ると、鏡の中では</h2>
-    <div class="pair">
-      <figure>
-        <span class="tag">手前から</span>
-        <img src="media/view_A_red_fuji.webp" alt="手前から見た作品。北斎の赤富士が線刻で見える" loading="lazy" width="1400" height="1400">
-        <figcaption>俯角 45° で見下ろすと、北斎の赤富士。雪の筋や雲の形まで出る。</figcaption>
-      </figure>
-      <figure>
-        <div class="toggle" role="group" aria-label="奥からの見え方">
-          <button type="button" data-b="mirror" aria-pressed="true">鏡の中</button>
-          <button type="button" data-b="direct" aria-pressed="false">裏へ回って直接</button>
-        </div>
-        <img id="b-img" src="media/view_B_pearl_earring_in_mirror.webp" alt="鏡の中の作品。フェルメールの少女が線刻で見える" loading="lazy" width="1400" height="1400">
-        <figcaption id="b-cap">同じ立体を鏡に映すと、フェルメールの少女。目・鼻・唇・真珠まで読める。</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section>
-    <h2>鏡を立てて展示すると</h2>
-    <div class="pair">
-      <figure>
-        <img src="media/mirror_showcase.webp" alt="手前の実物は赤富士、奥の鏡に映った像は少女" loading="lazy" width="1400" height="1867">
-      </figure>
-      <div>
-        <p>作品の奥に鏡を置き、上端を約 3° 手前へ倒します。手前の実物には赤富士、鏡に映った像には少女が見えます。鏡は、反対側からの視点を同時に見せる役目をします。</p>
-        <p class="note">平らな絵を鏡に映すと、上下逆さに見えるはずです。この作品では、上面の起伏（−8.5〜+6.4 mm）がその反転を打ち消し、少女が正立して見えます。裏へ回って直接見ると、少女は正立のまま左右だけ反転しています（上の切り替えボタン）。</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2>15° ごとの見え方</h2>
-    <div class="viewer">
-      <img id="az-main" class="main" src="media/view_az000.webp" alt="方位0度から見た作品" width="1200" height="1200">
-      <input id="az-range" type="range" min="0" max="23" step="1" value="0" aria-label="方位">
-      <p style="margin-top:8px">方位 <span class="readout" id="az-readout">0°</span> <span id="az-note" style="color:var(--muted)"></span></p>
-      <div class="grid8" id="az-grid"></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>仕組み</h2>
-    <p><strong>1 枚の像には奥行きの情報がない（杉原厚吉「変身立体」）。</strong>面上の点を手前と奥から同じ俯角 e で見ると、左右位置 x は共通です（鏡は奥行きだけを反転します）。違うのは上下位置で、手前からは vA、鏡の中では vB になります。溝 1 本ごとに 2 つの絵での位置を別々に決めれば、溝の空間曲線は次の式で一意に決まります。</p>
-    <div class="formula">y = (vA − vB) / (2 sin e)
-z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
-    <p style="margin-top:16px"><strong>明暗は、線の粗密と溝の幅で表す。</strong></p>
-    <ul>
-      <li><strong>粗密：</strong>絵の暗い所ほど溝が詰まるように、各列で線の密度の累積分布を 136 等分して溝を置きます。下から i 本目の溝は、赤富士の中では下から i 番目、少女の中では上から i 番目の位置です。並び順が 2 つの絵で逆なので、溝の間の面の傾きは密度の比で抑えられます。</li>
-      <li><strong>溝の幅：</strong>溝の手前の縁と奥の縁にも、それぞれ上の式を当てます。2 つの縁の高さを少し（最大 0.4 mm）変えると、手前から見た溝の幅と、鏡から見た溝の幅を別々に決められます。暗い所ほど溝を太く見せて、目・鼻・口や雪の筋のような細部を出します。片方の絵の幅の違いは、もう片方の絵には映りません。</li>
-    </ul>
-    <p>溝の位置（起伏）は左右になだらかに保ち、細部は溝の幅が受け持ちます。面の傾きは最大 0.75（約 37°）で、45° より緩いので、どちらの視点からも面が面自身を隠しません。見る人は上面を平らだと思い込むので、溝は平らな板に彫られた版画として読まれます。</p>
+    <figure>
+      <img src="media/pair_bambu_window.webp" alt="Bambu Studio の画面。台の上の板に雷神が見える" loading="lazy" width="1600" height="1067">
+      <figcaption>Bambu Studio で「星月夜 ⇄ 雷神」のプロジェクトを開き、板の奥側から見た画面。溝を黒に塗った 2 色のプロジェクトで、鏡に映す前の雷神が左右反転して見えます。</figcaption>
+    </figure>
     <div class="pair" style="margin-top:16px">
       <figure>
-        <img src="media/oblique.webp" alt="斜めから見た実際の彫り。波打つ面に細い溝が並ぶ" loading="lazy" width="1400" height="1050">
-        <figcaption>斜めから見た実際の彫り。波打つ面に細い溝が並び、赤富士は大きく歪んで見える。</figcaption>
+        <img src="media/pair_in_mirror.webp" alt="鏡の中の像。左に雷神、右に風神" loading="lazy" width="1544" height="600">
+        <figcaption>鏡の中の像（Bambu Studio で奥から見た画面を左右反転したもの）。左に雷神、右に風神。金地の余白を残し、二神が外側から中央の空白を挟んで向き合います。</figcaption>
       </figure>
       <figure>
-        <img src="media/top_view.webp" alt="真上から見た彫り" loading="lazy" width="1400" height="1750">
-        <figcaption>真上から見ると、2 つの絵の成分が混ざった模様になる。</figcaption>
+        <img src="media/pair_front.webp" alt="手前から見た 2 枚。左に星月夜、右にローヌ川の星月夜" loading="lazy" width="1544" height="600">
+        <figcaption>手前から見た 2 枚（Bambu Studio の画面。左：星月夜、右：ローヌ川の星月夜）。</figcaption>
       </figure>
-    </div>
-  </section>
-
-  <section>
-    <h2>3D プリンター向けの最適化</h2>
-    <p>家庭用の熱溶解プリンター Bambu Lab P1S（造形エリア 256 × 256 × 256 mm）で刷ることを前提に、形を実寸で設計しています。</p>
-    <ul>
-      <li><strong>大きさ：</strong>直方体 110 × 150 mm（長辺 15 cm）で、造形エリアに余裕をもって収まります。絵の部分は、手前からも鏡の中でも 96 mm 角の正方形に見えます。長辺 10・12.5・15 cm を比べて、少女の目・鼻・口が読める最小の大きさとして 15 cm を選びました。</li>
-      <li><strong>溝と壁の幅：</strong>溝の最小幅と、溝の間に残す壁の最小幅をノズルに合わせています。0.2 mm ノズル用は溝 0.35 mm・壁 0.30 mm、標準の 0.4 mm ノズル用は溝 0.50 mm・壁 0.50 mm です。壁は Arachne で 1 本の線として出せる幅です。溝の幅と壁の厚さはノズルで決まるので、小さくするときは溝の本数を減らしています。</li>
-      <li><strong>浅い起伏：</strong>濃淡の多くを溝の幅が受け持つので、線の粗密の差を小さくでき、起伏は −8.5〜+6.4 mm に収まります。高さは 20 mm で、起伏の陰影がもう一方の絵に透けにくくなります。</li>
-      <li><strong>サポート不要：</strong>上面はどの点も真上から見える形で、オーバーハングはありません。彫った面を上にして平らに置くだけです。</li>
-      <li><strong>スライサーでも読める：</strong>溝の幅で細部を出すので、墨を入れる前の形だけの状態でも、陰影で絵が読めます。</li>
-    </ul>
-    <figure style="margin-top:16px">
-      <img src="media/slicer_s15.webp" alt="墨なしの形だけの表示で、0.2 mm ノズル用と 0.4 mm ノズル用を比べた図" loading="lazy" width="2000" height="1987">
-      <figcaption>設計した形を、スライサー（Bambu Studio）と同じ種類の表示（単色・スタジオ照明・墨なし）で描いたもの。上段：0.2 mm ノズル用（溝 136 本）、下段：0.4 mm ノズル用（溝 84 本）。左が手前の赤富士、右が奥の少女。</figcaption>
-    </figure>
-  </section>
-
-  <section>
-    <h2>どのくらいの角度・距離まで見えるか</h2>
-    <p>設計は「俯角 45°・真正面・平行投影」ですが、角度が少しずれても絵は保たれます。溝の並び順が変わらないので、絵は急に消えず、少しずつ変形するだけだからです。</p>
-    <figure>
-      <img src="media/angle_test_A.webp" alt="俯角と左右の角度を変えた赤富士の見え方" loading="lazy" width="2000" height="805">
-      <figcaption>赤富士。上段は俯角 30° / 38° / 45° / 52° / 60°、下段は俯角 45° のまま左右 −30° / −15° / 0° / +15° / +30°。</figcaption>
-    </figure>
-    <figure style="margin-top:16px">
-      <img src="media/angle_test_B.webp" alt="俯角と左右の角度を変えた少女の見え方" loading="lazy" width="2000" height="805">
-      <figcaption>鏡の中の少女。並びは上と同じ。</figcaption>
-    </figure>
-    <figure style="margin-top:16px">
-      <img src="media/distance_test.webp" alt="見る距離を変えた見え方" loading="lazy" width="2000" height="805">
-      <figcaption>見る距離を 0.5 m / 0.7 m / 1 m / 2 m / 無限遠と変えた比較（透視投影）。上段：赤富士、下段：鏡の中の少女。0.5 m まで近づいても台形に歪むだけで、どちらの絵も読める。</figcaption>
-    </figure>
-    <div class="scroll" style="margin-top:16px">
-      <table>
-        <tr><th>条件</th><th>見え方</th></tr>
-        <tr><td>俯角 38〜60°</td><td>どちらの絵もはっきり読める（少し縦に伸び縮みする）</td></tr>
-        <tr><td>左右 ±15°</td><td>読める（絵が傾き、少し歪む）</td></tr>
-        <tr><td>左右 ±30°</td><td>読めるが、大きく歪む</td></tr>
-        <tr><td>俯角 30°</td><td>崩れ始める（面が溝を隠して黒い筋が出る。とくに赤富士）</td></tr>
-        <tr><td>距離 0.5 m 以上</td><td>問題なし（線が溶け合って明暗に見えるのは、およそ 1〜1.5 m から）</td></tr>
-      </table>
-    </div>
-  </section>
-
-  <section>
-    <h2>照明と墨入れ</h2>
-    <p>絵は、溝に入れた墨の黒と、表面の地色の対比でいちばんはっきり出ます。墨を入れる前の形だけの状態でも、溝の幅の違いが陰影になって絵は読めますが、うっすらとしています（下の①②）。</p>
-    <p>面の高さは、2 つの絵での線の位置の和で決まります。そのため一方の絵に縦の輪郭（富士の稜線や顔の輪郭）があると、その所で面が左右に傾きます。横からの強い光では、この傾きの陰影がもう一方の絵に透けて見えます（④）。</p>
-    <figure>
-      <img src="media/appearance_test_A.webp" alt="墨と照明の条件を変えた赤富士の見え方の比較" loading="lazy" width="2000" height="404">
-      <figcaption>手前から見た像。左から ①墨なし・陰影なし ②墨なし・普通の照明（刷っただけ） ③墨あり・上からのやわらかい光 ④墨あり・斜めからの強い光 ⑤陰影を弱めた描き方（参考）。</figcaption>
-    </figure>
-    <figure style="margin-top:16px">
-      <img src="media/appearance_test_B.webp" alt="墨と照明の条件を変えた少女の見え方の比較" loading="lazy" width="2000" height="404">
-      <figcaption>鏡の中の像。並びは上と同じ。</figcaption>
-    </figure>
-    <p class="note" style="margin-top:16px">見せるときは、溝に墨を入れ、上から、やわらかく、手前と奥に均等に光を当ててください（大きなディフューザー付きのライト、曇りの日の窓辺など）。スポットライトや横からの強い光は避けます。このページの画像は、特に断りのないものは③の条件（墨あり・やわらかい光、陰影を抑える処理なし）で描いています。</p>
-  </section>
-
-  <section>
-    <h2>寸法</h2>
-    <p>このページの画像は、0.2 mm ノズル用の版（直方体 110 × 150 × 19.7 mm、絵の部分 96 × 136 mm、溝 136 本・幅 0.35〜0.66 mm・深さ 0.8 mm）を実寸で描いたものです。絵の部分は、どちらから見ても 96 mm 角の正方形に見えます。</p>
-  </section>
-
-  <section id="print">
-    <h2>3D プリンター用のデータと設定（Bambu Lab P1S）</h2>
-    <p>どちらの版も実寸で設計しています。<strong>スライサーで拡大・縮小しないでください。</strong>溝の幅がノズルに合わなくなり、錯視も崩れます。<strong>別売の 0.2 mm ノズル用（溝 136 本）を勧めます。</strong>線が細かく、少女の目・鼻・口が読めます。標準の 0.4 mm ノズル用（溝 84 本）は線が粗く、少女は輪郭と明暗で分かる程度になります。</p>
-    <p>材料を<strong>白のマット PLA</strong>にすると、墨の線との対比が大きくなります。</p>
-    <figure>
-      <img src="media/p1s_n04_vs_n02.webp" alt="0.4 mm ノズル用と 0.2 mm ノズル用の見え方の比較" loading="lazy" width="2048" height="2048">
-      <figcaption>上段：0.4 mm ノズル用（溝 84 本）、下段：0.2 mm ノズル用（溝 136 本）。左が手前、右が鏡の中。墨あり・やわらかい光。</figcaption>
-    </figure>
-    <div class="scroll" style="margin-top:16px">
-      <table>
-        <tr><th></th><th>0.2 mm ノズル用</th><th>0.4 mm ノズル用（標準）</th></tr>
-        <tr><td>大きさ</td><td>110 × 150 × 19.7 mm</td><td>110 × 150 × 17.5 mm</td></tr>
-        <tr><td>溝</td><td>136 本・幅 0.35〜0.66・深さ 0.8 mm</td><td>84 本・幅 0.50〜1.06・深さ 1.0 mm</td></tr>
-        <tr><td>溝の間の壁（最小）</td><td>0.30 mm</td><td>0.50 mm</td></tr>
-        <tr><td>起伏</td><td>−8.5 〜 +6.4 mm</td><td>−6.9 〜 +5.5 mm</td></tr>
-        <tr><td>工程・積層ピッチ</td><td>0.08mm High Quality @BBL X1C 0.2 nozzle・0.08 mm</td><td>0.12mm Fine @BBL X1C・0.12 mm</td></tr>
-        <tr><td>壁生成</td><td colspan="2">Arachne（P1S 用のプリセットの既定は Classic なので切り替える）</td></tr>
-        <tr><td>インフィル</td><td colspan="2">15 %（プリセットのまま）</td></tr>
-        <tr><td>造形時間・材料の目安</td><td>約 19 時間 40 分・78 g</td><td>約 3 時間 45 分・79 g</td></tr>
-        <tr><td>サポート・ブリム</td><td colspan="2">不要</td></tr>
-        <tr><td>材料</td><td colspan="2">白のマット PLA（木地色・ベージュも可）</td></tr>
-      </table>
-    </div>
-    <ul>
-      <li><strong>置き方：</strong>彫った面を上にして平らに置きます。</li>
-      <li><strong>積層の筋：</strong>緩い斜面には、積層の段差が等高線のような筋になって出ます。可変積層ピッチで上面付近を細かくすると目立ちにくくなります。</li>
-      <li><strong>墨入れ：</strong>造形後、溝に黒のアクリル絵の具（または墨）を流し込み、乾く前に固く絞った布で表面を拭き取ります。溝の中だけが黒く残ります。</li>
-      <li><strong>スライスでの確認：</strong>Bambu Studio の P1S 用の公式プリセットで実際にスライスし、G-code の押し出し経路を STL の断面と重ねて確かめました。溝は埋まらず、0.2 mm ノズル用では幅 0.3 mm 以上の壁がすべて刷られます。刷られないのは、傾いた壁の頂上で断面が細くなる所（積層の段差）だけです。</li>
-      <li><strong>Bambu Studio 用プロジェクト：</strong>下の 3MF を開くと、P1S・ノズル・工程・フィラメントと Arachne の設定が入った状態になります。「スライス」を押せばそのまま刷れます。</li>
-      <li><strong>確認してほしいこと：</strong>実物はまだ刷っていません。初めての場合は、絵の一部を 30 mm 角ほど切り出して試し刷りすると安全です。</li>
-    </ul>
-    <div class="dl" style="margin-top:16px">
-      <a href="downloads/engraved_fuji_pearl_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 engraved_fuji_pearl_kit.zip</strong><span>STL 2 種（0.2 mm・0.4 mm ノズル）、Bambu Studio 用プロジェクト 2 つ、印刷設定の説明（README）、設計スクリプト、元の絵 · 33 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n02_s15_stl.zip" download><strong>0.2 mm ノズル用 STL</strong><span>engraved_fuji_pearl_p1s_n02_s15.stl（zip）· 15 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n02_s15_project.3mf" download><strong>0.2 mm ノズル用 Bambu Studio プロジェクト</strong><span>3MF・P1S 0.2 nozzle・0.08mm High Quality・Arachne の設定入り · 9 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n04_s15_stl.zip" download><strong>0.4 mm ノズル用 STL</strong><span>engraved_fuji_pearl_p1s_n04_s15.stl（zip）· 9 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n04_s15_project.3mf" download><strong>0.4 mm ノズル用 Bambu Studio プロジェクト</strong><span>3MF・P1S 0.4 nozzle・0.12mm Fine・Arachne の設定入り · 5 MB</span></a>
-    </div>
-  </section>
-
-  <section id="pair">
-    <p class="eyebrow" style="margin-bottom:4px">BONUS · おまけ</p>
-    <h2>2 枚組「星月夜 ⇄ 雷神」「ローヌ川の星月夜 ⇄ 風神」</h2>
-    <p>同じ変身立体の原理で作った 2 枚組です。左に置く 1 枚は手前から見るとゴッホ「星月夜」、右に置く 1 枚は「ローヌ川の星月夜」。2 枚を並べて奥に鏡を立てると、鏡の中には俵屋宗達「風神雷神図屏風」の雷神（左）と風神（右）が、元の屏風と同じ並びで現れます。鏡は奥行きだけを反転するので、左右は入れ替わりません。</p>
-    <div class="pair">
-      <figure>
-        <img src="media/pair_mirror_showcase.webp" alt="手前に 2 つの星月夜、奥の鏡の中に雷神と風神が並ぶ展示写真" loading="lazy" width="1400" height="1750">
-        <figcaption>2 枚の間を 2 cm ほどあけて並べ、奥に鏡を 1 枚立てた展示写真（Blender で実寸の立体を描いたもの）。</figcaption>
-      </figure>
-      <div>
-        <figure>
-          <img src="media/pair_in_mirror.webp" alt="鏡の中の像。左に雷神、右に風神" loading="lazy" width="1600" height="800">
-          <figcaption>鏡の中だけを拡大したもの。金地の余白を残し、二神が外側から中央の空白を挟んで向き合います。</figcaption>
-        </figure>
-        <figure style="margin-top:16px">
-          <img src="media/pair_front.webp" alt="手前から見た 2 枚。左に星月夜、右にローヌ川の星月夜" loading="lazy" width="1600" height="651">
-          <figcaption>手前から見た 2 枚（左：星月夜、右：ローヌ川の星月夜）。</figcaption>
-        </figure>
-      </div>
     </div>
     <p style="margin-top:16px">赤富士の版と違い、溝は<strong>等間隔</strong>で、上面の起伏はほぼありません（±0.3 mm）。明暗は、溝と溝の間の面の「見かけの幅」だけで描きます。面の手前の縁と奥の縁の高さを少し変えると、手前での見かけの幅と鏡での見かけの幅を別々に決められるので、片方の絵はもう一方にほとんど透けません。色と筆のタッチで描かれた星月夜の渦や星も、この方式で出せるようになりました。溝の間の面の見かけの幅は、手前・鏡それぞれ線の間隔の 18〜82 % の範囲で決めています。最初に公開した版（26〜74 %）より、明暗の差がはっきり出ます。1 枚の大きさは 135.7 × 150 mm（長辺 15 cm）、厚さ 5 mm の薄い板で、刷る時間は 1 枚約 2 時間半（0.4 mm ノズル・単色）です。溝の幅と溝の間の面の幅はノズルに合わせてあるので、15 cm にしたぶん溝の本数が減り、線は最初の版（長辺 24 cm）より粗くなっています。</p>
     <div class="scroll" style="margin-top:8px">
