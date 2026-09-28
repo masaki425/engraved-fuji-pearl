@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>線刻の変身画</title>
-<meta name="description" content="直方体の上面に 190 本の溝を彫っただけの、3D プリンターで刷れる立体。手前から見ると北斎の赤富士、鏡の中ではフェルメールの少女が浮かび上がる。杉原厚吉氏の「変身立体」の原理による。">
+<meta name="description" content="直方体の上面に 136 本の溝を彫っただけの、3D プリンターで刷れる長辺 15 cm の立体。手前から見ると北斎の赤富士、鏡の中ではフェルメールの少女が浮かび上がる。杉原厚吉氏の「変身立体」の原理による。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
@@ -113,8 +113,8 @@
   <header>
     <p class="eyebrow">ENGRAVED METAMORPHOSIS · 線刻の変身画</p>
     <h1>赤富士が、鏡の中で<br>真珠の耳飾りの少女になる</h1>
-    <p class="lead">直方体の上面に細い溝を 190 本彫り、墨を入れただけの立体です。手前から見ると葛飾北斎「凱風快晴」、後ろに立てた鏡の中ではフェルメール「真珠の耳飾りの少女」が、線刻の版画として浮かび上がります。塗りは地色と墨だけで、見る向きによる塗り分けはありません。絵が入れ替わるのは、溝の立体的な形のためです。</p>
-    <p class="lead" style="margin-top:12px"><strong style="color:var(--ink)">家庭用の 3D プリンター（Bambu Lab P1S）で刷れるように最適化した設計です。</strong>大きさ 180 × 246 × 30 mm、溝の幅と溝の間の壁の厚さはノズルに合わせてあり、サポートなしで刷れます。造形データは<a href="#print">ページの下</a>からダウンロードできます。</p>
+    <p class="lead">直方体の上面に細い溝を 136 本彫り、墨を入れただけの立体です。手前から見ると葛飾北斎「凱風快晴」、後ろに立てた鏡の中ではフェルメール「真珠の耳飾りの少女」が、線刻の版画として浮かび上がります。塗りは地色と墨だけで、見る向きによる塗り分けはありません。絵が入れ替わるのは、溝の立体的な形のためです。</p>
+    <p class="lead" style="margin-top:12px"><strong style="color:var(--ink)">家庭用の 3D プリンター（Bambu Lab P1S）で刷れるように最適化した設計です。</strong>大きさ 110 × 150 × 20 mm（長辺 15 cm）、溝の幅と溝の間の壁の厚さはノズルに合わせてあり、サポートなしで刷れます。造形データは<a href="#print">ページの下</a>からダウンロードできます。</p>
     <p class="lead" style="margin-top:12px"><strong style="color:var(--ink)">おまけ：</strong>同じ手法の 2 枚組「星月夜 ⇄ 雷神」「ローヌ川の星月夜 ⇄ 風神」を<a href="#pair">ページの最後</a>に追加しました。鏡の中に、俵屋宗達の風神雷神図屏風が現れます。</p>
   </header>
 
@@ -153,7 +153,7 @@
       </figure>
       <div>
         <p>作品の奥に鏡を置き、上端を約 3° 手前へ倒します。手前の実物には赤富士、鏡に映った像には少女が見えます。鏡は、反対側からの視点を同時に見せる役目をします。</p>
-        <p class="note">平らな絵を鏡に映すと、上下逆さに見えるはずです。この作品では、上面の起伏（−14〜+11 mm）がその反転を打ち消し、少女が正立して見えます。裏へ回って直接見ると、少女は正立のまま左右だけ反転しています（上の切り替えボタン）。</p>
+        <p class="note">平らな絵を鏡に映すと、上下逆さに見えるはずです。この作品では、上面の起伏（−8.5〜+6.4 mm）がその反転を打ち消し、少女が正立して見えます。裏へ回って直接見ると、少女は正立のまま左右だけ反転しています（上の切り替えボタン）。</p>
       </div>
     </div>
   </section>
@@ -175,7 +175,7 @@
 z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     <p style="margin-top:16px"><strong>明暗は、線の粗密と溝の幅で表す。</strong></p>
     <ul>
-      <li><strong>粗密：</strong>絵の暗い所ほど溝が詰まるように、各列で線の密度の累積分布を 190 等分して溝を置きます。下から i 本目の溝は、赤富士の中では下から i 番目、少女の中では上から i 番目の位置です。並び順が 2 つの絵で逆なので、溝の間の面の傾きは密度の比で抑えられます。</li>
+      <li><strong>粗密：</strong>絵の暗い所ほど溝が詰まるように、各列で線の密度の累積分布を 136 等分して溝を置きます。下から i 本目の溝は、赤富士の中では下から i 番目、少女の中では上から i 番目の位置です。並び順が 2 つの絵で逆なので、溝の間の面の傾きは密度の比で抑えられます。</li>
       <li><strong>溝の幅：</strong>溝の手前の縁と奥の縁にも、それぞれ上の式を当てます。2 つの縁の高さを少し（最大 0.4 mm）変えると、手前から見た溝の幅と、鏡から見た溝の幅を別々に決められます。暗い所ほど溝を太く見せて、目・鼻・口や雪の筋のような細部を出します。片方の絵の幅の違いは、もう片方の絵には映りません。</li>
     </ul>
     <p>溝の位置（起伏）は左右になだらかに保ち、細部は溝の幅が受け持ちます。面の傾きは最大 0.75（約 37°）で、45° より緩いので、どちらの視点からも面が面自身を隠しません。見る人は上面を平らだと思い込むので、溝は平らな板に彫られた版画として読まれます。</p>
@@ -195,15 +195,15 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     <h2>3D プリンター向けの最適化</h2>
     <p>家庭用の熱溶解プリンター Bambu Lab P1S（造形エリア 256 × 256 × 256 mm）で刷ることを前提に、形を実寸で設計しています。</p>
     <ul>
-      <li><strong>大きさ：</strong>直方体 180 × 246 mm で造形エリアに収まります。絵の部分は、手前からも鏡の中でも 160 mm 角の正方形に見えます。</li>
-      <li><strong>溝と壁の幅：</strong>溝の最小幅と、溝の間に残す壁の最小幅をノズルに合わせています。0.2 mm ノズル用は溝 0.35 mm・壁 0.30 mm、標準の 0.4 mm ノズル用は溝 0.50 mm・壁 0.50 mm です。壁は Arachne で 1 本の線として出せる幅です。</li>
-      <li><strong>浅い起伏：</strong>濃淡の多くを溝の幅が受け持つので、線の粗密の差を小さくでき、起伏は −14〜+11 mm に収まります。高さは 30 mm で、起伏の陰影がもう一方の絵に透けにくくなります。</li>
+      <li><strong>大きさ：</strong>直方体 110 × 150 mm（長辺 15 cm）で、造形エリアに余裕をもって収まります。絵の部分は、手前からも鏡の中でも 96 mm 角の正方形に見えます。長辺 10・12.5・15 cm を比べて、少女の目・鼻・口が読める最小の大きさとして 15 cm を選びました。</li>
+      <li><strong>溝と壁の幅：</strong>溝の最小幅と、溝の間に残す壁の最小幅をノズルに合わせています。0.2 mm ノズル用は溝 0.35 mm・壁 0.30 mm、標準の 0.4 mm ノズル用は溝 0.50 mm・壁 0.50 mm です。壁は Arachne で 1 本の線として出せる幅です。溝の幅と壁の厚さはノズルで決まるので、小さくするときは溝の本数を減らしています。</li>
+      <li><strong>浅い起伏：</strong>濃淡の多くを溝の幅が受け持つので、線の粗密の差を小さくでき、起伏は −8.5〜+6.4 mm に収まります。高さは 20 mm で、起伏の陰影がもう一方の絵に透けにくくなります。</li>
       <li><strong>サポート不要：</strong>上面はどの点も真上から見える形で、オーバーハングはありません。彫った面を上にして平らに置くだけです。</li>
       <li><strong>スライサーでも読める：</strong>溝の幅で細部を出すので、墨を入れる前の形だけの状態でも、陰影で絵が読めます。</li>
     </ul>
     <figure style="margin-top:16px">
-      <img src="media/slicer_new_vs_old.webp" alt="墨なしの形だけの表示で、今の設計と以前の設計を比べた図" loading="lazy" width="2000" height="2000">
-      <figcaption>STL を、スライサーと同じ種類の表示（単色・スタジオ照明・墨なし）で描いた比較。上段：今の設計、下段：以前の設計（溝の幅を 2 つの絵の平均で決めていた版）。左が手前、右が鏡の中の向き。以前の設計は左右方向に強くぼかしていたため、少女の目や口が消えていた。</figcaption>
+      <img src="media/slicer_s15.webp" alt="墨なしの形だけの表示で、0.2 mm ノズル用と 0.4 mm ノズル用を比べた図" loading="lazy" width="2000" height="1987">
+      <figcaption>設計した形を、スライサー（Bambu Studio）と同じ種類の表示（単色・スタジオ照明・墨なし）で描いたもの。上段：0.2 mm ノズル用（溝 136 本）、下段：0.4 mm ノズル用（溝 84 本）。左が手前の赤富士、右が奥の少女。</figcaption>
     </figure>
   </section>
 
@@ -229,7 +229,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
         <tr><td>左右 ±15°</td><td>読める（絵が傾き、少し歪む）</td></tr>
         <tr><td>左右 ±30°</td><td>読めるが、大きく歪む</td></tr>
         <tr><td>俯角 30°</td><td>崩れ始める（面が溝を隠して黒い筋が出る。とくに赤富士）</td></tr>
-        <tr><td>距離 0.5 m 以上</td><td>問題なし（線が溶け合って明暗に見えるのは 1〜2 m）</td></tr>
+        <tr><td>距離 0.5 m 以上</td><td>問題なし（線が溶け合って明暗に見えるのは、およそ 1〜1.5 m から）</td></tr>
       </table>
     </div>
   </section>
@@ -239,11 +239,11 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     <p>絵は、溝に入れた墨の黒と、表面の地色の対比でいちばんはっきり出ます。墨を入れる前の形だけの状態でも、溝の幅の違いが陰影になって絵は読めますが、うっすらとしています（下の①②）。</p>
     <p>面の高さは、2 つの絵での線の位置の和で決まります。そのため一方の絵に縦の輪郭（富士の稜線や顔の輪郭）があると、その所で面が左右に傾きます。横からの強い光では、この傾きの陰影がもう一方の絵に透けて見えます（④）。</p>
     <figure>
-      <img src="media/appearance_test_A.webp" alt="墨と照明の条件を変えた赤富士の見え方の比較" loading="lazy" width="2000" height="405">
+      <img src="media/appearance_test_A.webp" alt="墨と照明の条件を変えた赤富士の見え方の比較" loading="lazy" width="2000" height="404">
       <figcaption>手前から見た像。左から ①墨なし・陰影なし ②墨なし・普通の照明（刷っただけ） ③墨あり・上からのやわらかい光 ④墨あり・斜めからの強い光 ⑤陰影を弱めた描き方（参考）。</figcaption>
     </figure>
     <figure style="margin-top:16px">
-      <img src="media/appearance_test_B.webp" alt="墨と照明の条件を変えた少女の見え方の比較" loading="lazy" width="2000" height="405">
+      <img src="media/appearance_test_B.webp" alt="墨と照明の条件を変えた少女の見え方の比較" loading="lazy" width="2000" height="404">
       <figcaption>鏡の中の像。並びは上と同じ。</figcaption>
     </figure>
     <p class="note" style="margin-top:16px">見せるときは、溝に墨を入れ、上から、やわらかく、手前と奥に均等に光を当ててください（大きなディフューザー付きのライト、曇りの日の窓辺など）。スポットライトや横からの強い光は避けます。このページの画像は、特に断りのないものは③の条件（墨あり・やわらかい光、陰影を抑える処理なし）で描いています。</p>
@@ -251,43 +251,46 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
 
   <section>
     <h2>寸法</h2>
-    <p>このページの画像は、0.2 mm ノズル用の版（直方体 180 × 246 × 29.6 mm、絵の部分 160 × 226 mm、溝 190 本・幅 0.35〜0.80 mm・深さ 0.8 mm）を実寸で描いたものです。絵の部分は、どちらから見ても 160 mm 角の正方形に見えます。</p>
+    <p>このページの画像は、0.2 mm ノズル用の版（直方体 110 × 150 × 19.7 mm、絵の部分 96 × 136 mm、溝 136 本・幅 0.35〜0.66 mm・深さ 0.8 mm）を実寸で描いたものです。絵の部分は、どちらから見ても 96 mm 角の正方形に見えます。</p>
   </section>
 
   <section id="print">
     <h2>3D プリンター用のデータと設定（Bambu Lab P1S）</h2>
-    <p>どちらの版も実寸で設計しています。<strong>スライサーで拡大・縮小しないでください。</strong>溝の幅がノズルに合わなくなり、錯視も崩れます。別売の 0.2 mm ノズル用（溝 190 本）のほうが線が細かく、少女の顔がはっきり出ます。標準の 0.4 mm ノズル用（溝 140 本）でも目・鼻・唇・真珠は読めますが、やや粗くなります。</p>
+    <p>どちらの版も実寸で設計しています。<strong>スライサーで拡大・縮小しないでください。</strong>溝の幅がノズルに合わなくなり、錯視も崩れます。<strong>別売の 0.2 mm ノズル用（溝 136 本）を勧めます。</strong>線が細かく、少女の目・鼻・口が読めます。標準の 0.4 mm ノズル用（溝 84 本）は線が粗く、少女は輪郭と明暗で分かる程度になります。</p>
     <p>材料を<strong>白のマット PLA</strong>にすると、墨の線との対比が大きくなります。</p>
     <figure>
       <img src="media/p1s_n04_vs_n02.webp" alt="0.4 mm ノズル用と 0.2 mm ノズル用の見え方の比較" loading="lazy" width="2048" height="2048">
-      <figcaption>上段：0.4 mm ノズル用（溝 140 本）、下段：0.2 mm ノズル用（溝 190 本）。左が手前、右が鏡の中。墨あり・やわらかい光。</figcaption>
+      <figcaption>上段：0.4 mm ノズル用（溝 84 本）、下段：0.2 mm ノズル用（溝 136 本）。左が手前、右が鏡の中。墨あり・やわらかい光。</figcaption>
     </figure>
     <div class="scroll" style="margin-top:16px">
       <table>
         <tr><th></th><th>0.2 mm ノズル用</th><th>0.4 mm ノズル用（標準）</th></tr>
-        <tr><td>大きさ</td><td>180 × 246 × 29.6 mm</td><td>180 × 246 × 25.7 mm</td></tr>
-        <tr><td>溝</td><td>190 本・幅 0.35〜0.80・深さ 0.8 mm</td><td>140 本・幅 0.50〜1.08・深さ 1.0 mm</td></tr>
+        <tr><td>大きさ</td><td>110 × 150 × 19.7 mm</td><td>110 × 150 × 17.5 mm</td></tr>
+        <tr><td>溝</td><td>136 本・幅 0.35〜0.66・深さ 0.8 mm</td><td>84 本・幅 0.50〜1.06・深さ 1.0 mm</td></tr>
         <tr><td>溝の間の壁（最小）</td><td>0.30 mm</td><td>0.50 mm</td></tr>
-        <tr><td>起伏</td><td>−14 〜 +11 mm</td><td>−12 〜 +9 mm</td></tr>
-        <tr><td>積層ピッチ</td><td>0.08 mm</td><td>0.12 mm</td></tr>
-        <tr><td>壁生成・壁の本数</td><td colspan="2">Arachne（既定）・2</td></tr>
-        <tr><td>インフィル</td><td colspan="2">10〜15 %</td></tr>
-        <tr><td>サポート・ブリム</td><td colspan="2">不要（反る場合のみブリム）</td></tr>
+        <tr><td>起伏</td><td>−8.5 〜 +6.4 mm</td><td>−6.9 〜 +5.5 mm</td></tr>
+        <tr><td>工程・積層ピッチ</td><td>0.08mm High Quality @BBL X1C 0.2 nozzle・0.08 mm</td><td>0.12mm Fine @BBL X1C・0.12 mm</td></tr>
+        <tr><td>壁生成</td><td colspan="2">Arachne（P1S 用のプリセットの既定は Classic なので切り替える）</td></tr>
+        <tr><td>インフィル</td><td colspan="2">15 %（プリセットのまま）</td></tr>
+        <tr><td>造形時間・材料の目安</td><td>約 19 時間 40 分・78 g</td><td>約 3 時間 45 分・79 g</td></tr>
+        <tr><td>サポート・ブリム</td><td colspan="2">不要</td></tr>
         <tr><td>材料</td><td colspan="2">白のマット PLA（木地色・ベージュも可）</td></tr>
       </table>
     </div>
     <ul>
-      <li><strong>置き方：</strong>彫った面を上にして平らに置き、長い辺（246 mm）をベッドの前後方向に合わせます。</li>
+      <li><strong>置き方：</strong>彫った面を上にして平らに置きます。</li>
       <li><strong>積層の筋：</strong>緩い斜面には、積層の段差が等高線のような筋になって出ます。可変積層ピッチで上面付近を細かくすると目立ちにくくなります。</li>
       <li><strong>墨入れ：</strong>造形後、溝に黒のアクリル絵の具（または墨）を流し込み、乾く前に固く絞った布で表面を拭き取ります。溝の中だけが黒く残ります。</li>
-      <li><strong>確認してほしいこと：</strong>造形時間と材料の量は、作者の環境ではスライスして確かめていません。実物もまだ刷っていません。刷る前に Bambu Studio で確認し、初めての場合は絵の一部を 50 mm 角ほど切り出して試し刷りすると安全です。</li>
+      <li><strong>スライスでの確認：</strong>Bambu Studio の P1S 用の公式プリセットで実際にスライスし、G-code の押し出し経路を STL の断面と重ねて確かめました。溝は埋まらず、0.2 mm ノズル用では幅 0.3 mm 以上の壁がすべて刷られます。刷られないのは、傾いた壁の頂上で断面が細くなる所（積層の段差）だけです。</li>
+      <li><strong>Bambu Studio 用プロジェクト：</strong>下の 3MF を開くと、P1S・ノズル・工程・フィラメントと Arachne の設定が入った状態になります。「スライス」を押せばそのまま刷れます。</li>
+      <li><strong>確認してほしいこと：</strong>実物はまだ刷っていません。初めての場合は、絵の一部を 30 mm 角ほど切り出して試し刷りすると安全です。</li>
     </ul>
     <div class="dl" style="margin-top:16px">
-      <a href="downloads/engraved_fuji_pearl_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 engraved_fuji_pearl_kit.zip</strong><span>STL 2 種（0.2 mm・0.4 mm ノズル）、印刷設定の説明（README）、設計スクリプト、元の絵 · 37 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n02_iw_stl.zip" download><strong>0.2 mm ノズル用 STL</strong><span>engraved_fuji_pearl_p1s_n02_iw.stl（zip）· 21 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n02_iw.blend" download><strong>0.2 mm ノズル用 .blend</strong><span>Blender 5.2 · 19 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n04_iw_stl.zip" download><strong>0.4 mm ノズル用 STL</strong><span>engraved_fuji_pearl_p1s_n04_iw.stl（zip）· 15 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n04_iw.blend" download><strong>0.4 mm ノズル用 .blend</strong><span>Blender 5.2 · 13 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 engraved_fuji_pearl_kit.zip</strong><span>STL 2 種（0.2 mm・0.4 mm ノズル）、Bambu Studio 用プロジェクト 2 つ、印刷設定の説明（README）、設計スクリプト、元の絵 · 33 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n02_s15_stl.zip" download><strong>0.2 mm ノズル用 STL</strong><span>engraved_fuji_pearl_p1s_n02_s15.stl（zip）· 15 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n02_s15_project.3mf" download><strong>0.2 mm ノズル用 Bambu Studio プロジェクト</strong><span>3MF・P1S 0.2 nozzle・0.08mm High Quality・Arachne の設定入り · 9 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n04_s15_stl.zip" download><strong>0.4 mm ノズル用 STL</strong><span>engraved_fuji_pearl_p1s_n04_s15.stl（zip）· 9 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_p1s_n04_s15_project.3mf" download><strong>0.4 mm ノズル用 Bambu Studio プロジェクト</strong><span>3MF・P1S 0.4 nozzle・0.12mm Fine・Arachne の設定入り · 5 MB</span></a>
     </div>
   </section>
 
