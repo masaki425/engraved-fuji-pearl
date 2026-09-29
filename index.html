@@ -76,6 +76,13 @@
   .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .tag { display: inline-block; background: var(--shu-soft); color: var(--shu); font-weight: 700; font-size: .8rem; padding: 2px 10px; border-radius: 999px; margin-bottom: 8px; }
   .tag.ai { background: var(--accent-soft); color: var(--accent); }
+  .tag.relief { background: var(--shu-soft); color: var(--shu); }
+  .tag.flat { background: var(--accent-soft); color: var(--accent); }
+  .stack figure + figure { margin-top: 12px; }
+  .viewer .pair .main { max-width: none; }
+  .grid8 button span { display: grid; gap: 2px; }
+  .playboth { font: inherit; font-size: .85rem; border: 1px solid var(--line); background: var(--surface); color: var(--accent); padding: 4px 14px; border-radius: 999px; cursor: pointer; }
+  .playboth:hover { border-color: var(--accent); }
 
   .viewer { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
   .viewer .main { max-width: 640px; margin: 0 auto; }
@@ -121,70 +128,93 @@
   <section id="flat">
     <h2>平らな版と凸凹版</h2>
     <p>同じ絵・同じ大きさを、2 つの作り方で設計しました。<strong>凸凹版</strong>は、絵の暗い所ほど溝を詰めて明暗を出すので、上面が数 mm 波打ちます。実際に作ってみると、この凸凹が目立ちました。<strong>平らな版</strong>は、溝を等間隔に並べ、溝と溝の間の面の見かけの幅だけで明暗を描きます。上面の起伏は ±0.25 mm で、ほとんど平らな板です。</p>
+    <p>このページの画像と動画は、2 つの版を同じ照明・同じカメラで描き、<span class="tag relief" style="margin:0">凸凹版</span> と <span class="tag flat" style="margin:0">平らな版</span> を並べています。どちらも 0.4 mm ノズル用・墨あり・やわらかい光です。</p>
     <figure>
       <img src="media/flat_vs_relief.webp" alt="上段は凸凹版、下段は平らな版。左は手前から見た赤富士、右は鏡の中の少女" loading="lazy" width="2024" height="2024">
-      <figcaption>上段：凸凹版（溝 84 本、起伏 −6.9〜+5.5 mm）。下段：平らな版（溝 71 本・等間隔、起伏 ±0.25 mm）。左が手前、右が鏡の中。どちらも 0.4 mm ノズル用・墨あり・やわらかい光。凸凹版は線が絵に沿ってうねる版画、平らな版はまっすぐな線の網点のような版画になる。</figcaption>
-    </figure>
-    <div class="pair" style="margin-top:16px">
-      <figure>
-        <img src="media/flat_mirror_showcase.webp" alt="平らな版の展示写真。手前の実物は赤富士、奥の鏡に映った像は少女" loading="lazy" width="1400" height="1867">
-        <figcaption>平らな版を鏡の前に置いた展示写真（Blender で実寸の立体を描いたもの）。</figcaption>
-      </figure>
-      <figure>
-        <img src="media/flat_oblique.webp" alt="斜めから見た平らな版。厚さ 5 mm の平らな板に細い溝が並ぶ" loading="lazy" width="1400" height="980">
-        <figcaption>斜めから見た平らな版。厚さ 5 mm の平らな板に、等間隔の溝が並ぶ。</figcaption>
-      </figure>
-    </div>
-    <p style="margin-top:16px">このページのこれより下の動画・角度・照明の比較は、凸凹版で描いたものです。</p>
-  </section>
-
-  <section>
-    <h2>一周させて見る（凸凹版）</h2>
-    <figure class="square">
-      <video id="turntable" src="media/turntable.mp4" poster="media/view_az000.webp" controls loop muted playsinline preload="metadata" width="960" height="960"></video>
-      <figcaption>俯角 45° のカメラで作品の周りを一周する動画（12 秒・60 fps）。0° で赤富士、180° の真後ろで少女（左右反転）が現れる。その間は、絵が歪みながら入れ替わり、真横の前後では 2 つの絵が混ざって見える。</figcaption>
+      <figcaption>上段：凸凹版（溝 84 本、起伏 −6.9〜+5.5 mm）。下段：平らな版（溝 71 本・等間隔、起伏 ±0.25 mm）。左が手前、右が鏡の中。凸凹版は線が絵に沿ってうねる版画、平らな版はまっすぐな線の網点のような版画になる。</figcaption>
     </figure>
   </section>
 
   <section>
-    <h2>手前から見ると、鏡の中では（凸凹版）</h2>
+    <h2>一周させて見る</h2>
     <div class="pair">
       <figure>
-        <span class="tag">手前から</span>
-        <img src="media/view_A_red_fuji.webp" alt="手前から見た作品。北斎の赤富士が線刻で見える" loading="lazy" width="1400" height="1400">
-        <figcaption>俯角 45° で見下ろすと、北斎の赤富士。雪の筋や雲の形まで出る。</figcaption>
+        <span class="tag relief">凸凹版</span>
+        <video src="media/turntable.mp4" poster="media/view_az000.webp" controls loop muted playsinline preload="metadata" width="960" height="960"></video>
       </figure>
       <figure>
-        <div class="toggle" role="group" aria-label="奥からの見え方">
-          <button type="button" data-b="mirror" aria-pressed="true">鏡の中</button>
-          <button type="button" data-b="direct" aria-pressed="false">裏へ回って直接</button>
-        </div>
-        <img id="b-img" src="media/view_B_pearl_earring_in_mirror.webp" alt="鏡の中の作品。フェルメールの少女が線刻で見える" loading="lazy" width="1400" height="1400">
-        <figcaption id="b-cap">同じ立体を鏡に映すと、フェルメールの少女。0.4 mm ノズル用では線が粗く、目・鼻・口はうっすらと見える程度（少し離れて見ると読みやすい）。</figcaption>
+        <span class="tag flat">平らな版</span>
+        <video src="media/flat_turntable.mp4" poster="media/flat_view_az000.webp" controls loop muted playsinline preload="metadata" width="960" height="960"></video>
       </figure>
     </div>
+    <p style="margin-top:8px"><button type="button" id="play-both" class="playboth">2 つを同時に再生</button></p>
+    <p id="turntable-cap" style="color:var(--muted);font-size:.9rem">俯角 45° のカメラで作品の周りを一周する動画（12 秒・60 fps）。0° で赤富士、180° の真後ろで少女（左右反転）が現れる。</p>
   </section>
 
   <section>
-    <h2>鏡を立てて展示すると（凸凹版）</h2>
+    <h2>手前から見ると、鏡の中では</h2>
+    <div class="toggle" role="group" aria-label="奥からの見え方">
+      <button type="button" data-b="mirror" aria-pressed="true">鏡の中</button>
+      <button type="button" data-b="direct" aria-pressed="false">裏へ回って直接</button>
+    </div>
     <div class="pair">
-      <figure>
-        <img src="media/mirror_showcase.webp" alt="手前の実物は赤富士、奥の鏡に映った像は少女" loading="lazy" width="1400" height="1867">
-      </figure>
-      <div>
-        <p>作品の奥に鏡を置き、上端を約 3° 手前へ倒します。手前の実物には赤富士、鏡に映った像には少女が見えます。鏡は、反対側からの視点を同時に見せる役目をします。</p>
-        <p class="note">平らな絵を鏡に映すと、上下逆さに見えるはずです。この作品では、溝の立体的な形（凸凹版では上面の起伏 −6.9〜+5.5 mm、平らな版では面の縁のわずかな高さの違い）がその反転を打ち消し、少女が正立して見えます。裏へ回って直接見ると、少女は正立のまま左右だけ反転しています（上の切り替えボタン）。</p>
+      <div class="stack">
+        <figure>
+          <span class="tag relief">凸凹版・手前から</span>
+          <img src="media/view_A_red_fuji.webp" alt="凸凹版を手前から見た像。北斎の赤富士が線刻で見える" loading="lazy" width="1400" height="1400">
+        </figure>
+        <figure>
+          <span class="tag relief" data-b-label>凸凹版・鏡の中</span>
+          <img class="b-img" data-v="" src="media/view_B_pearl_earring_in_mirror.webp" alt="凸凹版の鏡の中の像。フェルメールの少女が線刻で見える" loading="lazy" width="1400" height="1400">
+        </figure>
+      </div>
+      <div class="stack">
+        <figure>
+          <span class="tag flat">平らな版・手前から</span>
+          <img src="media/flat_view_A_red_fuji.webp" alt="平らな版を手前から見た像。北斎の赤富士が線刻で見える" loading="lazy" width="1400" height="1400">
+        </figure>
+        <figure>
+          <span class="tag flat" data-b-label>平らな版・鏡の中</span>
+          <img class="b-img" data-v="flat_" src="media/flat_view_B_pearl_earring_in_mirror.webp" alt="平らな版の鏡の中の像。フェルメールの少女が線刻で見える" loading="lazy" width="1400" height="1400">
+        </figure>
       </div>
     </div>
+    <p id="b-cap" style="color:var(--muted);font-size:.9rem;margin-top:8px">同じ立体を鏡に映すと、フェルメールの少女が現れる。0.4 mm ノズル用では線が粗く、凸凹版では目・鼻・口がうっすらと見える程度。平らな版の方が、目や口がはっきり出る。</p>
   </section>
 
   <section>
-    <h2>15° ごとの見え方（凸凹版）</h2>
+    <h2>鏡を立てて展示すると</h2>
+    <div class="pair">
+      <figure>
+        <span class="tag relief">凸凹版</span>
+        <img src="media/mirror_showcase.webp" alt="凸凹版の展示写真。手前の実物は赤富士、奥の鏡に映った像は少女" loading="lazy" width="1400" height="1867">
+      </figure>
+      <figure>
+        <span class="tag flat">平らな版</span>
+        <img src="media/flat_mirror_showcase.webp" alt="平らな版の展示写真。手前の実物は赤富士、奥の鏡に映った像は少女" loading="lazy" width="1400" height="1867">
+      </figure>
+    </div>
+    <p style="margin-top:12px">作品の奥に鏡を置き、上端を約 3° 手前へ倒します。手前の実物には赤富士、鏡に映った像には少女が見えます。鏡は、反対側からの視点を同時に見せる役目をします。</p>
+    <p class="note">平らな絵を鏡に映すと、上下逆さに見えるはずです。この作品では、溝の立体的な形（凸凹版では上面の起伏 −6.9〜+5.5 mm、平らな版では面の縁のわずかな高さの違い）がその反転を打ち消し、少女が正立して見えます。裏へ回って直接見ると、少女は正立のまま左右だけ反転しています（上の切り替えボタン）。</p>
+  </section>
+
+  <section>
+    <h2>15° ごとの見え方</h2>
     <div class="viewer">
-      <img id="az-main" class="main" src="media/view_az000.webp" alt="方位0度から見た作品" width="1200" height="1200">
+      <div class="pair">
+        <figure>
+          <span class="tag relief">凸凹版</span>
+          <img id="az-main" class="main" src="media/view_az000.webp" alt="凸凹版を方位0度から見た像" width="1200" height="1200">
+        </figure>
+        <figure>
+          <span class="tag flat">平らな版</span>
+          <img id="az-main-flat" class="main" src="media/flat_view_az000.webp" alt="平らな版を方位0度から見た像" width="1200" height="1200">
+        </figure>
+      </div>
       <input id="az-range" type="range" min="0" max="23" step="1" value="0" aria-label="方位">
       <p style="margin-top:8px">方位 <span class="readout" id="az-readout">0°</span> <span id="az-note" style="color:var(--muted)"></span></p>
       <div class="grid8" id="az-grid"></div>
+      <p style="color:var(--muted);font-size:.85rem;margin-top:8px">下の小さな画像は、上が凸凹版、下が平らな版。</p>
     </div>
   </section>
 
@@ -202,12 +232,24 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     <p>凸凹版では、溝の位置（起伏）は左右になだらかに保ち、細部は溝の幅が受け持ちます。面の傾きは最大 0.75（約 37°）で、45° より緩いので、どちらの視点からも面が面自身を隠しません。見る人は上面を平らだと思い込むので、溝は平らな板に彫られた版画として読まれます。</p>
     <div class="pair" style="margin-top:16px">
       <figure>
-        <img src="media/oblique.webp" alt="斜めから見た実際の彫り。波打つ面に細い溝が並ぶ" loading="lazy" width="1400" height="1050">
-        <figcaption>斜めから見た凸凹版の彫り。波打つ面に細い溝が並び、赤富士は大きく歪んで見える。</figcaption>
+        <span class="tag relief">凸凹版・斜めから</span>
+        <img src="media/oblique.webp" alt="斜めから見た凸凹版。波打つ面に細い溝が並ぶ" loading="lazy" width="1400" height="1050">
+        <figcaption>波打つ面に細い溝が並び、赤富士は大きく歪んで見える。</figcaption>
       </figure>
       <figure>
-        <img src="media/top_view.webp" alt="真上から見た彫り" loading="lazy" width="1400" height="1750">
-        <figcaption>凸凹版を真上から見ると、2 つの絵の成分が混ざった模様になる。</figcaption>
+        <span class="tag flat">平らな版・斜めから</span>
+        <img src="media/flat_oblique.webp" alt="斜めから見た平らな版。平らな板に等間隔の溝が並ぶ" loading="lazy" width="1400" height="1050">
+        <figcaption>厚さ 5 mm の平らな板に、等間隔の溝が並ぶ。</figcaption>
+      </figure>
+      <figure>
+        <span class="tag relief">凸凹版・真上から</span>
+        <img src="media/top_view.webp" alt="真上から見た凸凹版の彫り" loading="lazy" width="1400" height="1750">
+        <figcaption>2 つの絵の成分が混ざった模様になる。</figcaption>
+      </figure>
+      <figure>
+        <span class="tag flat">平らな版・真上から</span>
+        <img src="media/flat_top_view.webp" alt="真上から見た平らな版の彫り" loading="lazy" width="1400" height="1750">
+        <figcaption>溝の幅が場所ごとに変わるだけの、ほぼまっすぐな縞になる。</figcaption>
       </figure>
     </div>
   </section>
@@ -221,7 +263,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
       <li><strong>平らな版：</strong>厚さ 5 mm の板で、溝があるのは上面の 1 mm ほどだけです。緩い斜面がないので積層の筋が出にくく、造形時間は凸凹版の半分以下（約 1 時間 40 分）です。</li>
       <li><strong>凸凹版：</strong>濃淡の多くを溝の幅が受け持つので、線の粗密の差を小さくでき、起伏は −6.9〜+5.5 mm に収まります。</li>
       <li><strong>サポート不要：</strong>どちらの版も、上面はどの点も真上から見える形で、オーバーハングはありません。彫った面を上にして平らに置くだけです。</li>
-      <li><strong>スライサーでも読める：</strong>墨を入れる前の形だけの状態でも、陰影で絵が読めます。</li>
+      <li><strong>墨入れ：</strong>凸凹版は、墨を入れる前の形だけの状態でも陰影で絵が読めます。平らな版は、墨を入れて初めて絵がはっきり出ます。</li>
     </ul>
     <figure style="margin-top:16px">
       <img src="media/slicer_s15.webp" alt="墨なしの形だけの表示で見た凸凹版" loading="lazy" width="2000" height="994">
@@ -231,43 +273,76 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
 
   <section>
     <h2>どのくらいの角度・距離まで見えるか</h2>
-    <p>設計は「俯角 45°・真正面・平行投影」ですが、角度が少しずれても絵は保たれます。溝の並び順が変わらないので、絵は急に消えず、少しずつ変形するだけだからです。</p>
-    <figure>
-      <img src="media/angle_test_A.webp" alt="俯角と左右の角度を変えた赤富士の見え方" loading="lazy" width="2000" height="805">
-      <figcaption>赤富士。上段は俯角 30° / 38° / 45° / 52° / 60°、下段は俯角 45° のまま左右 −30° / −15° / 0° / +15° / +30°。</figcaption>
-    </figure>
-    <figure style="margin-top:16px">
-      <img src="media/angle_test_B.webp" alt="俯角と左右の角度を変えた少女の見え方" loading="lazy" width="2000" height="805">
-      <figcaption>鏡の中の少女。並びは上と同じ。</figcaption>
-    </figure>
-    <figure style="margin-top:16px">
-      <img src="media/distance_test.webp" alt="見る距離を変えた見え方" loading="lazy" width="2000" height="805">
-      <figcaption>見る距離を 0.5 m / 0.7 m / 1 m / 2 m / 無限遠と変えた比較（透視投影）。上段：赤富士、下段：鏡の中の少女。0.5 m まで近づいても台形に歪むだけで、どちらの絵も読める。</figcaption>
-    </figure>
+    <p>設計は「俯角 45°・真正面・平行投影」ですが、角度が少しずれても絵は保たれます。溝の並び順が変わらないので、絵は急に消えず、少しずつ変形するだけだからです。凸凹版は低い角度（俯角 30°）で崩れ始め、平らな版は高い角度（俯角 52° 以上）でもう一方の絵が透けてきます。平らな版は、俯角 45° かそれより少し低い位置から見るのがいちばんきれいです。</p>
+    <div class="stack">
+      <figure>
+        <span class="tag relief">凸凹版・赤富士</span>
+        <img src="media/angle_test_A.webp" alt="凸凹版で、俯角と左右の角度を変えた赤富士の見え方" loading="lazy" width="2000" height="805">
+      </figure>
+      <figure>
+        <span class="tag flat">平らな版・赤富士</span>
+        <img src="media/flat_angle_test_A.webp" alt="平らな版で、俯角と左右の角度を変えた赤富士の見え方" loading="lazy" width="2000" height="805">
+        <figcaption>上段は俯角 30° / 38° / 45° / 52° / 60°、下段は俯角 45° のまま左右 −30° / −15° / 0° / +15° / +30°。</figcaption>
+      </figure>
+      <figure style="margin-top:16px">
+        <span class="tag relief">凸凹版・鏡の中の少女</span>
+        <img src="media/angle_test_B.webp" alt="凸凹版で、俯角と左右の角度を変えた少女の見え方" loading="lazy" width="2000" height="805">
+      </figure>
+      <figure>
+        <span class="tag flat">平らな版・鏡の中の少女</span>
+        <img src="media/flat_angle_test_B.webp" alt="平らな版で、俯角と左右の角度を変えた少女の見え方" loading="lazy" width="2000" height="805">
+        <figcaption>並びは上と同じ。</figcaption>
+      </figure>
+      <figure style="margin-top:16px">
+        <span class="tag relief">凸凹版・距離</span>
+        <img src="media/distance_test.webp" alt="凸凹版で、見る距離を変えた見え方" loading="lazy" width="2000" height="805">
+      </figure>
+      <figure>
+        <span class="tag flat">平らな版・距離</span>
+        <img src="media/flat_distance_test.webp" alt="平らな版で、見る距離を変えた見え方" loading="lazy" width="2000" height="805">
+        <figcaption>見る距離を 0.5 m / 0.7 m / 1 m / 2 m / 無限遠と変えた比較（透視投影）。各版の上段：赤富士、下段：鏡の中の少女。</figcaption>
+      </figure>
+    </div>
     <div class="scroll" style="margin-top:16px">
       <table>
-        <tr><th>条件</th><th>見え方</th></tr>
-        <tr><td>俯角 38〜60°</td><td>どちらの絵もはっきり読める（少し縦に伸び縮みする）</td></tr>
-        <tr><td>左右 ±15°</td><td>読める（絵が傾き、少し歪む）</td></tr>
-        <tr><td>左右 ±30°</td><td>読めるが、大きく歪む</td></tr>
-        <tr><td>俯角 30°</td><td>崩れ始める（面が溝を隠して黒い筋が出る。とくに赤富士）</td></tr>
-        <tr><td>距離 0.5 m 以上</td><td>問題なし（線が溶け合って明暗に見えるのは、およそ 1〜1.5 m から）</td></tr>
+        <tr><th>条件</th><th>凸凹版</th><th>平らな版</th></tr>
+        <tr><td>俯角 38〜45°</td><td>どちらの絵もはっきり読める</td><td>どちらの絵もはっきり読める</td></tr>
+        <tr><td>俯角 52〜60°</td><td>読める（少し縦に伸び縮みする）</td><td>読めるが、もう一方の絵の輪郭が透けてくる（52° でうっすら、60° ではっきり）</td></tr>
+        <tr><td>俯角 30°</td><td>崩れ始める（面が溝を隠して黒い筋が出る。とくに赤富士）</td><td>読める</td></tr>
+        <tr><td>左右 ±15°</td><td colspan="2">読める（絵が傾き、少し歪む）</td></tr>
+        <tr><td>左右 ±30°</td><td colspan="2">読めるが、大きく歪む</td></tr>
+        <tr><td>距離 0.5 m 以上</td><td colspan="2">問題なし（線が溶け合って明暗に見えるのは、およそ 1〜1.5 m から）</td></tr>
       </table>
     </div>
   </section>
 
   <section>
     <h2>照明と墨入れ</h2>
-    <p>絵は、溝に入れた墨の黒と、表面の地色の対比でいちばんはっきり出ます。墨を入れる前の形だけの状態でも、溝の幅の違いが陰影になって絵は読めますが、うっすらとしています（下の①②）。</p>
-    <p>面の高さは、2 つの絵での線の位置の和で決まります。そのため一方の絵に縦の輪郭（富士の稜線や顔の輪郭）があると、その所で面が左右に傾きます。横からの強い光では、この傾きの陰影がもう一方の絵に透けて見えます（④）。</p>
-    <figure>
-      <img src="media/appearance_test_A.webp" alt="墨と照明の条件を変えた赤富士の見え方の比較" loading="lazy" width="2000" height="405">
-      <figcaption>手前から見た像。左から ①墨なし・陰影なし ②墨なし・普通の照明（刷っただけ） ③墨あり・上からのやわらかい光 ④墨あり・斜めからの強い光 ⑤陰影を弱めた描き方（参考）。</figcaption>
-    </figure>
-    <figure style="margin-top:16px">
-      <img src="media/appearance_test_B.webp" alt="墨と照明の条件を変えた少女の見え方の比較" loading="lazy" width="2000" height="405">
-      <figcaption>鏡の中の像。並びは上と同じ。</figcaption>
-    </figure>
+    <p>絵は、溝に入れた墨の黒と、表面の地色の対比でいちばんはっきり出ます（下の③）。</p>
+    <ul>
+      <li><strong>墨なし（①②）：</strong>凸凹版は、溝の幅と起伏の陰影で、うっすらと絵が読めます。平らな版は、溝の間の面の幅だけで明暗を描くので、墨を入れないとほとんど見えません。平らな版は墨入れが欠かせません。</li>
+      <li><strong>斜めからの強い光（④）：</strong>凸凹版は、面の高さが 2 つの絵での線の位置の和で決まるので、一方の絵に縦の輪郭（富士の稜線や顔の輪郭）があると、その所で面が左右に傾きます。横からの強い光では、この傾きの陰影がもう一方の絵に透けて見えます。平らな版は面がほぼ平らなので、強い光でも透けは目立ちません。</li>
+    </ul>
+    <div class="stack">
+      <figure>
+        <span class="tag relief">凸凹版・手前から</span>
+        <img src="media/appearance_test_A.webp" alt="凸凹版で、墨と照明の条件を変えた赤富士の見え方" loading="lazy" width="2000" height="405">
+      </figure>
+      <figure>
+        <span class="tag flat">平らな版・手前から</span>
+        <img src="media/flat_appearance_test_A.webp" alt="平らな版で、墨と照明の条件を変えた赤富士の見え方" loading="lazy" width="2000" height="405">
+        <figcaption>左から ①墨なし・陰影なし ②墨なし・普通の照明（刷っただけ） ③墨あり・上からのやわらかい光 ④墨あり・斜めからの強い光 ⑤陰影を弱めた描き方（参考）。</figcaption>
+      </figure>
+      <figure style="margin-top:16px">
+        <span class="tag relief">凸凹版・鏡の中</span>
+        <img src="media/appearance_test_B.webp" alt="凸凹版で、墨と照明の条件を変えた少女の見え方" loading="lazy" width="2000" height="405">
+      </figure>
+      <figure>
+        <span class="tag flat">平らな版・鏡の中</span>
+        <img src="media/flat_appearance_test_B.webp" alt="平らな版で、墨と照明の条件を変えた少女の見え方" loading="lazy" width="2000" height="405">
+        <figcaption>並びは上と同じ。</figcaption>
+      </figure>
+    </div>
     <p class="note" style="margin-top:16px">見せるときは、溝に墨を入れ、上から、やわらかく、手前と奥に均等に光を当ててください（大きなディフューザー付きのライト、曇りの日の窓辺など）。スポットライトや横からの強い光は避けます。このページの画像は、特に断りのないものは③の条件（墨あり・やわらかい光、陰影を抑える処理なし）で描いています。</p>
   </section>
 
@@ -382,6 +457,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     return "— 真後ろから直接（少女・左右反転）";
   }
   const main = document.getElementById("az-main");
+  const mainFlat = document.getElementById("az-main-flat");
   const range = document.getElementById("az-range");
   const readout = document.getElementById("az-readout");
   const note = document.getElementById("az-note");
@@ -392,7 +468,7 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     const b = document.createElement("button");
     b.type = "button";
     b.setAttribute("aria-label", `方位 ${a}°`);
-    b.innerHTML = `<img src="media/view_az${pad(a)}.webp" alt="" loading="lazy" width="1200" height="1200">`;
+    b.innerHTML = `<span><img src="media/view_az${pad(a)}.webp" alt="" loading="lazy" width="1200" height="1200"><img src="media/flat_view_az${pad(a)}.webp" alt="" loading="lazy" width="1200" height="1200"></span>`;
     b.addEventListener("click", () => { range.value = i; show(i); });
     grid.appendChild(b);
   });
@@ -400,7 +476,9 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
   function show(i) {
     const a = AZ[i];
     main.src = `media/view_az${pad(a)}.webp`;
-    main.alt = `方位${a}度から見た作品`;
+    main.alt = `凸凹版を方位${a}度から見た像`;
+    mainFlat.src = `media/flat_view_az${pad(a)}.webp`;
+    mainFlat.alt = `平らな版を方位${a}度から見た像`;
     readout.textContent = `${a}°`;
     note.textContent = noteFor(a);
     [...grid.children].forEach((b, j) => b.setAttribute("aria-current", j === +i ? "true" : "false"));
@@ -409,16 +487,22 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
   show(0);
 
   const B = {
-    mirror: ["media/view_B_pearl_earring_in_mirror.webp", "鏡の中の作品。フェルメールの少女が線刻で見える", "同じ立体を鏡に映すと、フェルメールの少女。0.4 mm ノズル用では線が粗く、目・鼻・口はうっすらと見える程度（少し離れて見ると読みやすい）。"],
-    direct: ["media/view_B_direct_from_behind.webp", "裏へ回って直接見た作品。少女が正立し左右反転して見える", "裏へ回って直接見ると、少女は正立のまま左右だけ反転する。"],
+    mirror: ["view_B_pearl_earring_in_mirror.webp", "鏡の中", "同じ立体を鏡に映すと、フェルメールの少女が現れる。0.4 mm ノズル用では線が粗く、凸凹版では目・鼻・口がうっすらと見える程度。平らな版の方が、目や口がはっきり出る。"],
+    direct: ["view_B_direct_from_behind.webp", "裏へ回って直接", "裏へ回って直接見ると、少女は正立のまま左右だけ反転する。"],
   };
-  const bImg = document.getElementById("b-img");
   const bCap = document.getElementById("b-cap");
   document.querySelectorAll(".toggle button").forEach(btn => btn.addEventListener("click", () => {
-    const [src, alt, cap] = B[btn.dataset.b];
-    bImg.src = src; bImg.alt = alt; bCap.textContent = cap;
+    const [file, label, cap] = B[btn.dataset.b];
+    document.querySelectorAll(".b-img").forEach(img => { img.src = `media/${img.dataset.v}${file}`; });
+    document.querySelectorAll("[data-b-label]").forEach(t => { t.textContent = t.textContent.split("・")[0] + "・" + label; });
+    bCap.textContent = cap;
     document.querySelectorAll(".toggle button").forEach(x => x.setAttribute("aria-pressed", x === btn ? "true" : "false"));
   }));
+
+  document.getElementById("play-both").addEventListener("click", () => {
+    const vs = [...document.querySelectorAll("section video")].slice(0, 2);
+    vs.forEach(v => { v.currentTime = 0; v.play(); });
+  });
 </script>
 </body>
 </html>
