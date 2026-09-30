@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>線刻の変身画</title>
-<meta name="description" content="板の上面に細い溝を彫っただけの、3D プリンターで刷れる長辺 15 cm の立体。手前から見ると北斎の赤富士、鏡の中ではフェルメールの少女が浮かび上がる。上面がほぼ平らな版と、波打つ凸凹版の 2 つ。杉原厚吉氏の「変身立体」の原理による。">
+<title>生成アート錯視：赤富士と少女</title>
+<meta name="description" content="表面が平らな板に等間隔の溝を彫っただけの立体。手前から見ると北斎の赤富士、鏡の中ではフェルメールの真珠の耳飾りの少女が見える。家庭用 3D プリンターで刷った結果、錯視の原理、造形データ。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
@@ -19,6 +19,8 @@
     --accent-soft: #dde4f0;
     --shu: #b8432f;
     --shu-soft: #f4dfd9;
+    --land: #e2cfae;
+    --groove: #4a3f35;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -31,6 +33,8 @@
       --accent-soft: #1d2a40;
       --shu: #e0765f;
       --shu-soft: #3a2320;
+      --land: #8a7658;
+      --groove: #0b0d11;
     }
   }
   :root[data-theme="dark"] {
@@ -43,6 +47,8 @@
     --accent-soft: #1d2a40;
     --shu: #e0765f;
     --shu-soft: #3a2320;
+    --land: #8a7658;
+    --groove: #0b0d11;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -56,15 +62,22 @@
   .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
   header { padding: 56px 0 24px; }
   .eyebrow { color: var(--shu); font-weight: 700; letter-spacing: .08em; font-size: .85rem; margin: 0 0 8px; }
-  h1 { font-family: "Noto Serif JP", serif; font-size: clamp(1.9rem, 5vw, 2.8rem); line-height: 1.3; margin: 0 0 16px; }
-  .lead { color: var(--muted); max-width: 44em; margin: 0; }
-  section { padding: 32px 0; border-top: 1px solid var(--line); }
-  h2 { font-size: 1.3rem; margin: 0 0 12px; }
+  h1 { font-family: "Noto Serif JP", serif; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.25; margin: 0 0 4px; }
+  h1 small { display: block; font-size: .55em; color: var(--muted); margin-top: 6px; }
+  .authors { margin: 12px 0 20px; font-size: .95rem; }
+  .lead { max-width: 46em; margin: 0 0 12px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+  .toc a { display: inline-block; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 14px; font-size: .9rem; text-decoration: none; }
+  .toc a:hover { border-color: var(--accent); }
+  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: start; }
+  section { padding: 40px 0 32px; border-top: 1px solid var(--line); }
+  h2 { font-size: 1.45rem; margin: 0 0 16px; }
+  h2 .num { color: var(--shu); font-family: "Noto Serif JP", serif; margin-right: .4em; }
+  h3 { font-size: 1.1rem; margin: 28px 0 10px; }
   p { margin: 0 0 12px; }
   figure { margin: 0; }
   img, video { display: block; width: 100%; height: auto; border-radius: 10px; background: #d6cfc1; }
   figcaption { color: var(--muted); font-size: .9rem; margin-top: 8px; }
-  .square { max-width: 640px; margin: 0 auto; }
 
   .toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); margin-bottom: 12px; }
   .toggle button {
@@ -74,31 +87,28 @@
   .toggle button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
 
   .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .tag { display: inline-block; background: var(--shu-soft); color: var(--shu); font-weight: 700; font-size: .8rem; padding: 2px 10px; border-radius: 999px; margin-bottom: 8px; }
-  .tag.ai { background: var(--accent-soft); color: var(--accent); }
-  .tag.relief { background: var(--shu-soft); color: var(--shu); }
-  .tag.flat { background: var(--accent-soft); color: var(--accent); }
+  .tri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tag { display: inline-block; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: .8rem; padding: 2px 10px; border-radius: 999px; margin-bottom: 8px; }
+  .tag.real { background: var(--shu-soft); color: var(--shu); }
   .stack figure + figure { margin-top: 12px; }
-  .viewer .pair .main { max-width: none; }
-  .grid8 button span { display: grid; gap: 2px; }
-  .playboth { font: inherit; font-size: .85rem; border: 1px solid var(--line); background: var(--surface); color: var(--accent); padding: 4px 14px; border-radius: 999px; cursor: pointer; }
-  .playboth:hover { border-color: var(--accent); }
 
   .viewer { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
-  .viewer .main { max-width: 640px; margin: 0 auto; }
+  .viewer .main { max-width: 560px; margin: 0 auto; }
   .viewer input[type=range] { width: 100%; accent-color: var(--accent); margin: 16px 0 4px; }
   .readout { font-weight: 700; font-variant-numeric: tabular-nums; }
-
-  .grid8 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; margin-top: 16px; }
-  .grid8 button { padding: 0; border: 2px solid transparent; border-radius: 10px; background: none; cursor: pointer; }
-  .grid8 button[aria-current="true"] { border-color: var(--accent); }
-  .grid8 img { border-radius: 8px; }
+  .grid24 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; margin-top: 16px; }
+  .grid24 button { padding: 0; border: 2px solid transparent; border-radius: 8px; background: none; cursor: pointer; }
+  .grid24 button[aria-current="true"] { border-color: var(--accent); }
+  .grid24 img { border-radius: 6px; }
 
   .note { background: var(--accent-soft); border-radius: 10px; padding: 12px 16px; }
-  .formula { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9rem; overflow-x: auto; white-space: pre; }
+  .formula { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9rem; overflow-x: auto; white-space: pre; margin: 0 0 12px; }
+  .diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin: 8px 0 12px; }
+  .diagram svg { display: block; width: 100%; height: auto; }
+  .diagram text { font-family: "Noto Sans JP", system-ui, sans-serif; fill: var(--ink); }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   th, td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
-  th { color: var(--muted); font-weight: 500; }
+  th { color: var(--muted); font-weight: 500; white-space: nowrap; }
   .scroll { overflow-x: auto; }
   .dl { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .dl a { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; color: var(--ink); text-decoration: none; }
@@ -108,344 +118,270 @@
   a { color: var(--accent); }
   footer { padding: 32px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
 
-  @media (max-width: 640px) {
+  @media (max-width: 720px) {
     header { padding-top: 32px; }
-    .pair, .dl { grid-template-columns: 1fr; }
-    .grid8 { grid-template-columns: repeat(6, 1fr); gap: 4px; }
+    .hero, .pair, .dl { grid-template-columns: 1fr; }
+    .tri { grid-template-columns: 1fr 1fr; }
+    .grid24 { grid-template-columns: repeat(6, 1fr); gap: 4px; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <p class="eyebrow">ENGRAVED METAMORPHOSIS · 線刻の変身画</p>
-    <h1>赤富士が、鏡の中で<br>真珠の耳飾りの少女になる</h1>
-    <p class="lead">板の上面に細い溝を彫り、墨を入れただけの立体です。手前から見ると葛飾北斎「凱風快晴」、後ろに立てた鏡の中ではフェルメール「真珠の耳飾りの少女」が、線刻の版画として浮かび上がります。塗りは地色と墨だけで、見る向きによる塗り分けはありません。絵が入れ替わるのは、溝の立体的な形のためです。</p>
-    <p class="lead" style="margin-top:12px"><strong style="color:var(--ink)">家庭用の 3D プリンター（Bambu Lab P1S）の標準の 0.4 mm ノズルで刷れるように設計しています。</strong>作り方の違う 2 つの版があります。上面がほぼ平らな<strong style="color:var(--ink)">平らな版</strong>（110 × 150 × 5 mm）と、上面が波打つ<strong style="color:var(--ink)">凸凹版</strong>（110 × 150 × 17.5 mm）です。どちらも長辺 15 cm で、サポートなしで刷れます。造形データは<a href="#print">ページの下</a>からダウンロードできます。</p>
-    <p class="lead" style="margin-top:12px"><strong style="color:var(--ink)">おまけ：</strong>同じ手法の 2 枚組「星月夜 ⇄ 雷神」「ローヌ川の星月夜 ⇄ 風神」を<a href="#pair">ページの最後</a>に追加しました。鏡の中に、俵屋宗達の風神雷神図屏風が現れます。</p>
-  </header>
-
-  <section id="flat">
-    <h2>平らな版と凸凹版</h2>
-    <p>同じ絵・同じ大きさを、2 つの作り方で設計しました。<strong>凸凹版</strong>は、絵の暗い所ほど溝を詰めて明暗を出すので、上面が数 mm 波打ちます。実際に作ってみると、この凸凹が目立ちました。<strong>平らな版</strong>は、溝を等間隔に並べ、溝と溝の間の面の見かけの幅だけで明暗を描きます。上面の起伏は ±0.25 mm で、ほとんど平らな板です。</p>
-    <p>このページの画像と動画は、2 つの版を同じ照明・同じカメラで描き、<span class="tag relief" style="margin:0">凸凹版</span> と <span class="tag flat" style="margin:0">平らな版</span> を並べています。どちらも 0.4 mm ノズル用・墨あり・やわらかい光です。</p>
-    <figure>
-      <img src="media/flat_vs_relief.webp" alt="上段は凸凹版、下段は平らな版。左は手前から見た赤富士、右は鏡の中の少女" loading="lazy" width="2024" height="2024">
-      <figcaption>上段：凸凹版（溝 84 本、起伏 −6.9〜+5.5 mm）。下段：平らな版（溝 71 本・等間隔、起伏 ±0.25 mm）。左が手前、右が鏡の中。凸凹版は線が絵に沿ってうねる版画、平らな版はまっすぐな線の網点のような版画になる。</figcaption>
-    </figure>
-  </section>
-
-  <section>
-    <h2>一周させて見る</h2>
-    <div class="pair">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">GENERATIVE ART ILLUSION</p>
+        <h1>生成アート錯視<small>赤富士と少女</small></h1>
+        <p class="authors">渡部匡己、杉永友美、渡辺英治（基礎生物学研究所）</p>
+        <p class="lead">杉原厚吉先生の「変身立体」にインスパイアされて作った錯視です。変身立体は、立体の輪郭の形を工夫して、見る向きで違う形に見せます。この作品は表面を平らな板にし、そこに彫った細い溝の<strong>立体的な遮蔽（手前の縁が奥を隠す）</strong>を設計することで、見る向きによってまったく違う絵を見せます。</p>
+        <p class="lead">手前から見ると葛飾北斎「冨嶽三十六景 凱風快晴」（赤富士）、奥に立てた鏡の中ではフェルメール「真珠の耳飾りの少女」が見えます。塗りは一色だけで、2 つの絵の違いは溝の形だけから生まれます。遮蔽を使うので、濃淡のある複雑な名画 2 枚を 1 枚の板に同時に描けます。</p>
+        <p class="lead">家庭用の 3D プリンター（Bambu Lab P1S）で刷れるように設計し、実際に刷って確かめました。設計のコードは Claude Code で書きました。</p>
+        <ul class="toc">
+          <li><a href="#result">1. 3D プリンターで刷った結果</a></li>
+          <li><a href="#principle">2. 錯視の原理</a></li>
+          <li><a href="#data">3. 平らな版の設計データ</a></li>
+        </ul>
+      </div>
       <figure>
-        <span class="tag relief">凸凹版</span>
-        <video src="media/turntable.mp4" poster="media/view_az000.webp" controls loop muted playsinline preload="metadata" width="960" height="960"></video>
-      </figure>
-      <figure>
-        <span class="tag flat">平らな版</span>
-        <video src="media/flat_turntable.mp4" poster="media/flat_view_az000.webp" controls loop muted playsinline preload="metadata" width="960" height="960"></video>
+        <img src="media/print_mirror_pdf.webp" alt="3D プリンターで刷った板と、その奥に立てた鏡。鏡の中に真珠の耳飾りの少女が映っている" width="1224" height="1633">
+        <figcaption>3D プリンターで刷った実物。奥の鏡の中に少女が映る（墨入れなし）。</figcaption>
       </figure>
     </div>
-    <p style="margin-top:8px"><button type="button" id="play-both" class="playboth">2 つを同時に再生</button></p>
-    <p id="turntable-cap" style="color:var(--muted);font-size:.9rem">俯角 45° のカメラで作品の周りを一周する動画（12 秒・60 fps）。0° で赤富士、180° の真後ろで少女（左右反転）が現れる。</p>
+  </header>
+
+  <!-- ============ 1. 結果 ============ -->
+  <section id="result">
+    <h2><span class="num">1</span>3D プリンターで刷った結果</h2>
+    <p>下の「平らな版の設計データ」の STL を、家庭用の 3D プリンター Bambu Lab P1S（標準の 0.4 mm ノズル）で、明るい色の PLA 1 色で刷りました。大きさは 110 × 150 × 5.3 mm、造形時間は約 1 時間 40 分です。刷ったあとの墨入れや塗装はしていません。</p>
+    <div class="pair">
+      <figure>
+        <span class="tag real">実物・動画</span>
+        <video src="media/print_rotate.mp4" poster="media/print_rotate_poster.webp" controls loop muted playsinline preload="metadata" width="720" height="1280"></video>
+        <figcaption>板を 90° ずつ回す。手前の板と鏡の中で、赤富士と少女が入れ替わる（8.5 秒）。</figcaption>
+      </figure>
+      <figure>
+        <span class="tag real">実物・写真</span>
+        <img src="media/print_noink_mirror.webp" alt="刷った板を手前に置き、奥の鏡に少女が映っている写真" loading="lazy" width="1696" height="2000">
+        <figcaption>鏡の中では、少女の横顔・頭巾・襟元まで読める。</figcaption>
+      </figure>
+    </div>
+    <h3>確かめられたこと</h3>
+    <ul>
+      <li><strong>手前では赤富士、鏡の中では少女が、どちらもはっきり見えました。</strong>設計どおり、1 色で刷っただけの平らな板で 2 つの絵が入れ替わります。</li>
+      <li><strong>墨入れなしで見えます。</strong>溝の中の陰だけで、絵に必要な明暗が出ます。</li>
+      <li><strong>板を 180° 回すと、2 つの絵が入れ替わります。</strong>手前に少女、鏡の中に赤富士が現れます（動画）。</li>
+      <li><strong>気づいた点：</strong>見る角度や照明によっては、手前の板に、もう一方の絵の輪郭がうっすら浮かびます（写真の手前の板）。設計の俯角 45° より高い位置から見ると目立ちます。濃淡の少ない線画にすると、この透けはほとんど出ませんでした（下）。</li>
+    </ul>
+    <h3>同じ方式の線画の試作</h3>
+    <div class="pair" style="align-items:start">
+      <figure>
+        <span class="tag real">実物・写真</span>
+        <img src="media/print_smiley.webp" alt="手前の板には驚いた顔、奥の鏡には笑顔が見える試作品" loading="lazy" width="773" height="1012">
+      </figure>
+      <div>
+        <p>太い線だけの絵で試した試作です。手前の板には驚いた顔、鏡の中には笑顔が見えます。線画では、もう一方の絵の透けはほとんど見えません。</p>
+        <p>濃淡のある名画では、面の明るさを細かく作り分ける必要があるため、見る角度が設計からずれたときの透けが線画より出やすくなります。</p>
+      </div>
+    </div>
   </section>
 
-  <section>
-    <h2>手前から見ると、鏡の中では</h2>
+  <!-- ============ 2. 原理 ============ -->
+  <section id="principle">
+    <h2><span class="num">2</span>錯視の原理</h2>
+
+    <h3>1 枚の像には奥行きの情報がない</h3>
+    <p>目に映る像は平面なので、見えている点がどの奥行きにあるかは分かりません。杉原厚吉先生の「変身立体」は、この性質を使って、ある向きからは四角、反対の向きからは丸に見える立体を作ります。</p>
+    <p>板の上の点を、手前と奥から同じ俯角 e で見るとします。左右の位置 x は、どちらから見ても同じです。違うのは上下の位置で、手前の像では vA、奥の像では vB になります。点の奥行き y と高さ z を選べば、vA と vB を別々に決められます。</p>
+    <div class="formula">vA =  y sin e + z cos e        （手前の像での上下位置）
+vB = −y sin e + z cos e        （奥の像での上下位置）
+→  y = (vA − vB) / (2 sin e),   z = (vA + vB) / (2 cos e)      e = 45°</div>
+    <p>つまり、2 つの絵のそれぞれで「この点はここに見えてほしい」と決めれば、その点を置く空間の位置が 1 つに決まります。</p>
+
+    <h3>平らな板に等間隔の溝を彫り、溝の間の面の「見かけの幅」で明暗を描く</h3>
+    <p>板の上面に、左右いっぱいの細い溝を等間隔に 71 本彫ります。俯角 45° で見ると、溝の中は陰になって暗く、溝と溝の間の面は明るく見えます。そこで、<strong>面が広く見える所ほど明るく</strong>見えるように、溝の間の面の見かけの幅で絵の明暗を描きます（網点の印刷と同じ考え方です）。</p>
+    <p>ここで、面の手前の縁と奥の縁の高さを、ほんの少しずらします。面が奥に向かって上がっていると、手前から見た面は広く、奥から見た面は狭くなります（下の図）。面 1 枚ごとに縁の位置と高さの 2 つを決めれば、<strong>手前での見かけの幅 wA と、奥での見かけの幅 wB を、別々に決められます。</strong>上の式を面の縁に当てると、次のようになります。</p>
+    <div class="formula">wA = Δy sin e + Δz cos e      （Δy：面の奥行き、Δz：奥の縁と手前の縁の高さの差）
+wB = Δy sin e − Δz cos e</div>
+    <div class="diagram">
+      <svg viewBox="40 0 600 300" role="img" aria-label="溝の断面図。奥へ向かって少し上がった面は、手前から見ると広く、奥から見ると狭く見える">
+        <!-- 見る向き -->
+        <g font-size="15">
+          <text x="52" y="24">手前から 45°</text>
+          <text x="52" y="44" style="fill:var(--shu)">＝ 赤富士</text>
+          <text x="628" y="24" text-anchor="end">奥から 45°（鏡の中）</text>
+          <text x="628" y="44" text-anchor="end" style="fill:var(--accent)">＝ 少女</text>
+        </g>
+        <!-- 板の断面 -->
+        <path d="M80 190 H220 V240 H260 V200 L400 176 V240 H440 V190 H600 V280 H80 Z" stroke-width="1.5" style="fill:var(--land);stroke:var(--muted)"/>
+        <rect x="221" y="191" width="38" height="48" opacity=".75" style="fill:var(--groove)"/>
+        <rect x="401" y="191" width="38" height="48" opacity=".75" style="fill:var(--groove)"/>
+        <!-- 手前からの視線 -->
+        <g stroke-width="1.5" stroke-dasharray="5 4" fill="none" style="stroke:var(--shu)">
+          <line x1="260" y1="200" x2="172" y2="112"/>
+          <line x1="400" y1="176" x2="262" y2="38"/>
+        </g>
+        <line x1="200" y1="140" x2="282" y2="58" stroke-width="5" stroke-linecap="round" style="stroke:var(--shu)"/>
+        <text x="150" y="92" font-size="16" style="fill:var(--shu)" font-weight="700">wA</text>
+        <path d="M110 70 l30 30 m0 0 l-3 -11 m3 11 l-11 -3" stroke-width="2" fill="none" style="stroke:var(--shu)"/>
+        <!-- 奥からの視線 -->
+        <g stroke-width="1.5" stroke-dasharray="5 4" fill="none" style="stroke:var(--accent)">
+          <line x1="260" y1="200" x2="418" y2="42"/>
+          <line x1="400" y1="176" x2="476" y2="100"/>
+        </g>
+        <line x1="402" y1="58" x2="460" y2="116" stroke-width="5" stroke-linecap="round" style="stroke:var(--accent)"/>
+        <text x="470" y="80" font-size="16" style="fill:var(--accent)" font-weight="700">wB</text>
+        <path d="M570 70 l-30 30 m0 0 l3 -11 m-3 11 l11 -3" stroke-width="2" fill="none" style="stroke:var(--accent)"/>
+        <!-- 高さの差 -->
+        <g stroke-width="1.2" style="stroke:var(--ink)">
+          <line x1="262" y1="200" x2="396" y2="200" stroke-dasharray="3 3"/>
+          <line x1="392" y1="177" x2="392" y2="200"/>
+        </g>
+        <text x="384" y="196" font-size="14" text-anchor="end">Δz</text>
+        <!-- 注記 -->
+        <g font-size="14" style="fill:var(--muted)">
+          <text x="240" y="230" text-anchor="middle" style="fill:var(--surface)">溝</text>
+          <text x="420" y="230" text-anchor="middle" style="fill:var(--surface)">溝</text>
+          <text x="330" y="232" text-anchor="middle">溝の間の面</text>
+          <text x="80" y="298">手前</text>
+          <text x="600" y="298" text-anchor="end">奥</text>
+        </g>
+      </svg>
+    </div>
+    <p style="color:var(--muted);font-size:.9rem">溝の断面（左が手前、右が奥）。傾きは分かりやすく大きく描いています。実際の高さの差は 0.5 mm 以下で、上面の起伏は ±0.25 mm 程度です。</p>
+    <p>片方の絵のために変えた幅は、もう一方の絵の幅には影響しません。こうして、同じ 71 本の溝のうえに、赤富士の明暗と少女の明暗を独立に書き込みます。溝の位置は等間隔のままなので、どちらから見ても、まっすぐな線が並んだ網点の版画のように見えます。</p>
+    <ul>
+      <li><strong>陰影の打ち消し：</strong>面が少し傾くと、照明によって面そのものの明るさも変わります。この陰影がもう一方の絵に透けないよう、2 つの絵の明るさの式を連立で解いて、傾きの陰影まで打ち消しています。</li>
+      <li><strong>見かけの幅の範囲：</strong>面の見かけの幅は、手前・奥それぞれ溝の間隔の 18〜82 % の範囲で決めます。この範囲なら、どの組み合わせでも溝の幅と面の幅が 0.5 mm（0.4 mm ノズルで刷れる下限）を割りません。</li>
+      <li><strong>思い込み：</strong>見る人は、板の上面を平らだと思い込みます。本当に平らな板の線画なら、奥から見ると同じ絵が上下逆さに見えるだけです。この作品では、同じ溝がまったく別の絵を描きます。</li>
+    </ul>
+
+    <h3>なぜ鏡を立てるのか</h3>
+    <p>奥からの絵は、裏へ回らないと見えません。作品の奥に鏡を立てると、手前に立ったまま、奥からの視点の像を同時に見られます。鏡は奥行きだけを反転するので、少女は正しい向きで映ります。裏へ回って直接見ると、少女は左右反転して見えます（下の切り替えボタン）。</p>
     <div class="toggle" role="group" aria-label="奥からの見え方">
       <button type="button" data-b="mirror" aria-pressed="true">鏡の中</button>
       <button type="button" data-b="direct" aria-pressed="false">裏へ回って直接</button>
     </div>
-    <div class="pair">
-      <div class="stack">
-        <figure>
-          <span class="tag relief">凸凹版・手前から</span>
-          <img src="media/view_A_red_fuji.webp" alt="凸凹版を手前から見た像。北斎の赤富士が線刻で見える" loading="lazy" width="1400" height="1400">
-        </figure>
-        <figure>
-          <span class="tag relief" data-b-label>凸凹版・鏡の中</span>
-          <img class="b-img" data-v="" src="media/view_B_pearl_earring_in_mirror.webp" alt="凸凹版の鏡の中の像。フェルメールの少女が線刻で見える" loading="lazy" width="1400" height="1400">
-        </figure>
-      </div>
-      <div class="stack">
-        <figure>
-          <span class="tag flat">平らな版・手前から</span>
-          <img src="media/flat_view_A_red_fuji.webp" alt="平らな版を手前から見た像。北斎の赤富士が線刻で見える" loading="lazy" width="1400" height="1400">
-        </figure>
-        <figure>
-          <span class="tag flat" data-b-label>平らな版・鏡の中</span>
-          <img class="b-img" data-v="flat_" src="media/flat_view_B_pearl_earring_in_mirror.webp" alt="平らな版の鏡の中の像。フェルメールの少女が線刻で見える" loading="lazy" width="1400" height="1400">
-        </figure>
-      </div>
+    <div class="tri">
+      <figure>
+        <span class="tag">手前から</span>
+        <img src="media/flat_view_A_red_fuji.webp" alt="手前から見た像。赤富士が線刻で見える" loading="lazy" width="1400" height="1400">
+      </figure>
+      <figure>
+        <span class="tag" id="b-label">鏡の中</span>
+        <img id="b-img" src="media/flat_view_B_pearl_earring_in_mirror.webp" alt="鏡の中の像。少女が線刻で見える" loading="lazy" width="1400" height="1400">
+      </figure>
+      <figure>
+        <span class="tag">鏡を立てて展示</span>
+        <img src="media/flat_mirror_showcase.webp" alt="手前の板に赤富士、奥の鏡に少女が見える展示の再現" loading="lazy" width="1400" height="1867">
+      </figure>
     </div>
-    <p id="b-cap" style="color:var(--muted);font-size:.9rem;margin-top:8px">同じ立体を鏡に映すと、フェルメールの少女が現れる。0.4 mm ノズル用では線が粗く、凸凹版では目・鼻・口がうっすらと見える程度。平らな版の方が、目や口がはっきり出る。</p>
-  </section>
+    <p style="color:var(--muted);font-size:.9rem;margin-top:8px">設計した形を Blender で実寸で描いた再現（溝に墨を入れ、上からやわらかい光を当てた条件）。</p>
 
-  <section>
-    <h2>鏡を立てて展示すると</h2>
+    <h3>見る向きを変えると</h3>
     <div class="pair">
       <figure>
-        <span class="tag relief">凸凹版</span>
-        <img src="media/mirror_showcase.webp" alt="凸凹版の展示写真。手前の実物は赤富士、奥の鏡に映った像は少女" loading="lazy" width="1400" height="1867">
+        <video src="media/flat_turntable.mp4" poster="media/flat_view_az000.webp" controls loop muted playsinline preload="metadata" width="960" height="960"></video>
+        <figcaption>俯角 45° のカメラで作品の周りを一周する再現（12 秒）。0° で赤富士、180° の真後ろで少女（左右反転）が現れる。</figcaption>
       </figure>
-      <figure>
-        <span class="tag flat">平らな版</span>
-        <img src="media/flat_mirror_showcase.webp" alt="平らな版の展示写真。手前の実物は赤富士、奥の鏡に映った像は少女" loading="lazy" width="1400" height="1867">
-      </figure>
-    </div>
-    <p style="margin-top:12px">作品の奥に鏡を置き、上端を約 3° 手前へ倒します。手前の実物には赤富士、鏡に映った像には少女が見えます。鏡は、反対側からの視点を同時に見せる役目をします。</p>
-    <p class="note">平らな絵を鏡に映すと、上下逆さに見えるはずです。この作品では、溝の立体的な形（凸凹版では上面の起伏 −6.9〜+5.5 mm、平らな版では面の縁のわずかな高さの違い）がその反転を打ち消し、少女が正立して見えます。裏へ回って直接見ると、少女は正立のまま左右だけ反転しています（上の切り替えボタン）。</p>
-  </section>
-
-  <section>
-    <h2>15° ごとの見え方</h2>
-    <div class="viewer">
-      <div class="pair">
-        <figure>
-          <span class="tag relief">凸凹版</span>
-          <img id="az-main" class="main" src="media/view_az000.webp" alt="凸凹版を方位0度から見た像" width="1200" height="1200">
-        </figure>
-        <figure>
-          <span class="tag flat">平らな版</span>
-          <img id="az-main-flat" class="main" src="media/flat_view_az000.webp" alt="平らな版を方位0度から見た像" width="1200" height="1200">
-        </figure>
+      <div class="viewer">
+        <img id="az-main" class="main" src="media/flat_view_az000.webp" alt="方位 0 度から見た像" width="1200" height="1200">
+        <input id="az-range" type="range" min="0" max="23" step="1" value="0" aria-label="方位">
+        <p style="margin:4px 0 0">方位 <span class="readout" id="az-readout">0°</span> <span id="az-note" style="color:var(--muted)"></span></p>
       </div>
-      <input id="az-range" type="range" min="0" max="23" step="1" value="0" aria-label="方位">
-      <p style="margin-top:8px">方位 <span class="readout" id="az-readout">0°</span> <span id="az-note" style="color:var(--muted)"></span></p>
-      <div class="grid8" id="az-grid"></div>
-      <p style="color:var(--muted);font-size:.85rem;margin-top:8px">下の小さな画像は、上が凸凹版、下が平らな版。</p>
     </div>
-  </section>
+    <div class="grid24" id="az-grid"></div>
 
-  <section>
-    <h2>仕組み</h2>
-    <p><strong>1 枚の像には奥行きの情報がない（杉原厚吉「変身立体」）。</strong>面上の点を手前と奥から同じ俯角 e で見ると、左右位置 x は共通です（鏡は奥行きだけを反転します）。違うのは上下位置で、手前からは vA、鏡の中では vB になります。溝 1 本ごとに 2 つの絵での位置を別々に決めれば、溝の空間曲線は次の式で一意に決まります。</p>
-    <div class="formula">y = (vA − vB) / (2 sin e)
-z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
-    <p style="margin-top:16px"><strong>平らな版：明暗は、溝の間の面の見かけの幅だけで表す。</strong>溝は 71 本を等間隔に並べます。溝と溝の間の面の手前の縁と奥の縁の高さを少しずらすと、手前から見た面の幅と、鏡から見た面の幅を別々に決められます。面が広く見えるほど明るく見えます。片方の絵での幅の違いは、もう片方の絵には映りません。面の見かけの幅は、手前・鏡それぞれ線の間隔の 18〜82 % の範囲で決め、面のわずかな傾きによる陰影も 2 つの絵の明るさを連立で解いて打ち消しています。</p>
-    <p style="margin-top:16px"><strong>凸凹版：明暗は、線の粗密と溝の幅で表す。</strong></p>
-    <ul>
-      <li><strong>粗密：</strong>絵の暗い所ほど溝が詰まるように、各列で線の密度の累積分布を 84 等分して溝を置きます。下から i 本目の溝は、赤富士の中では下から i 番目、少女の中では上から i 番目の位置です。並び順が 2 つの絵で逆なので、溝の間の面の傾きは密度の比で抑えられます。</li>
-      <li><strong>溝の幅：</strong>溝の手前の縁と奥の縁にも、それぞれ上の式を当てます。2 つの縁の高さを少し（最大 0.55 mm）変えると、手前から見た溝の幅と、鏡から見た溝の幅を別々に決められます。暗い所ほど溝を太く見せて、目・鼻・口や雪の筋のような細部を出します。片方の絵の幅の違いは、もう片方の絵には映りません。</li>
-    </ul>
-    <p>凸凹版では、溝の位置（起伏）は左右になだらかに保ち、細部は溝の幅が受け持ちます。面の傾きは最大 0.75（約 37°）で、45° より緩いので、どちらの視点からも面が面自身を隠しません。見る人は上面を平らだと思い込むので、溝は平らな板に彫られた版画として読まれます。</p>
-    <div class="pair" style="margin-top:16px">
+    <h3>形そのもの</h3>
+    <div class="pair">
       <figure>
-        <span class="tag relief">凸凹版・斜めから</span>
-        <img src="media/oblique.webp" alt="斜めから見た凸凹版。波打つ面に細い溝が並ぶ" loading="lazy" width="1400" height="1050">
-        <figcaption>波打つ面に細い溝が並び、赤富士は大きく歪んで見える。</figcaption>
+        <img src="media/flat_oblique.webp" alt="斜めから見た板。平らな板に等間隔の溝が並ぶ" loading="lazy" width="1400" height="1050">
+        <figcaption>斜めから見ると、厚さ 5 mm の平らな板に等間隔の溝が並んでいるだけに見える。</figcaption>
       </figure>
       <figure>
-        <span class="tag flat">平らな版・斜めから</span>
-        <img src="media/flat_oblique.webp" alt="斜めから見た平らな版。平らな板に等間隔の溝が並ぶ" loading="lazy" width="1400" height="1050">
-        <figcaption>厚さ 5 mm の平らな板に、等間隔の溝が並ぶ。</figcaption>
-      </figure>
-      <figure>
-        <span class="tag relief">凸凹版・真上から</span>
-        <img src="media/top_view.webp" alt="真上から見た凸凹版の彫り" loading="lazy" width="1400" height="1750">
-        <figcaption>2 つの絵の成分が混ざった模様になる。</figcaption>
-      </figure>
-      <figure>
-        <span class="tag flat">平らな版・真上から</span>
-        <img src="media/flat_top_view.webp" alt="真上から見た平らな版の彫り" loading="lazy" width="1400" height="1750">
-        <figcaption>溝の幅が場所ごとに変わるだけの、ほぼまっすぐな縞になる。</figcaption>
+        <img src="media/flat_top_view.webp" alt="真上から見た板の彫り" loading="lazy" width="1400" height="1750">
+        <figcaption>真上から見ると、溝の幅が場所ごとに少し変わるだけの、ほぼまっすぐな縞になる。</figcaption>
       </figure>
     </div>
-  </section>
 
-  <section>
-    <h2>3D プリンター向けの最適化</h2>
-    <p>家庭用の熱溶解プリンター Bambu Lab P1S（造形エリア 256 × 256 × 256 mm）で刷ることを前提に、形を実寸で設計しています。</p>
-    <ul>
-      <li><strong>大きさ：</strong>どちらの版も 110 × 150 mm（長辺 15 cm）で、造形エリアに余裕をもって収まります。絵の部分は、手前からも鏡の中でも 96 mm 角の正方形に見えます。0.4 mm ノズルでは線が粗いので、少女の目や口は、凸凹版より平らな版の方がはっきり出ます。</li>
-      <li><strong>ノズル：</strong>P1S 標準の 0.4 mm ノズル用です。溝の最小幅と、溝の間の壁（面）の最小幅は、どちらも 0.50 mm です。壁は Arachne で 1 本の線として出せる幅です。</li>
-      <li><strong>平らな版：</strong>厚さ 5 mm の板で、溝があるのは上面の 1 mm ほどだけです。緩い斜面がないので積層の筋が出にくく、造形時間は凸凹版の半分以下（約 1 時間 40 分）です。</li>
-      <li><strong>凸凹版：</strong>濃淡の多くを溝の幅が受け持つので、線の粗密の差を小さくでき、起伏は −6.9〜+5.5 mm に収まります。</li>
-      <li><strong>サポート不要：</strong>どちらの版も、上面はどの点も真上から見える形で、オーバーハングはありません。彫った面を上にして平らに置くだけです。</li>
-      <li><strong>スライサーでも読める：</strong>どちらの版も、墨を入れる前の形だけの状態で、陰影で絵がうっすら読めます。</li>
-    </ul>
-    <figure style="margin-top:16px">
-      <img src="media/slicer_s15.webp" alt="墨なしの形だけの表示で見た凸凹版" loading="lazy" width="2000" height="994">
-      <figcaption>凸凹版の形を、スライサー（Bambu Studio）と同じ種類の表示（単色・スタジオ照明・墨なし）で描いたもの。左が手前の赤富士、右が奥の少女。</figcaption>
-    </figure>
-  </section>
-
-  <section>
-    <h2>どのくらいの角度・距離まで見えるか</h2>
-    <p>設計は「俯角 45°・真正面・平行投影」ですが、角度が少しずれても絵は保たれます。溝の並び順が変わらないので、絵は急に消えず、少しずつ変形するだけだからです。凸凹版は低い角度（俯角 30°）で崩れ始め、平らな版は高い角度（俯角 52° 以上）でもう一方の絵が透けてきます。平らな版は、俯角 45° かそれより少し低い位置から見るのがいちばんきれいです。</p>
+    <h3>どの角度まで見えるか</h3>
+    <p>設計は「俯角 45°・真正面」ですが、角度が少しずれても絵は保たれます。溝の並び順が変わらないので、絵は急に消えず、少しずつ変形するだけです。俯角 45° かそれより少し低い位置から見るのがいちばんきれいです。</p>
     <div class="stack">
       <figure>
-        <span class="tag relief">凸凹版・赤富士</span>
-        <img src="media/angle_test_A.webp" alt="凸凹版で、俯角と左右の角度を変えた赤富士の見え方" loading="lazy" width="2000" height="805">
+        <span class="tag">赤富士</span>
+        <img src="media/flat_angle_test_A.webp" alt="俯角と左右の角度を変えた赤富士の見え方" loading="lazy" width="2000" height="805">
       </figure>
       <figure>
-        <span class="tag flat">平らな版・赤富士</span>
-        <img src="media/flat_angle_test_A.webp" alt="平らな版で、俯角と左右の角度を変えた赤富士の見え方" loading="lazy" width="2000" height="805">
-        <figcaption>上段は俯角 30° / 38° / 45° / 52° / 60°、下段は俯角 45° のまま左右 −30° / −15° / 0° / +15° / +30°。</figcaption>
-      </figure>
-      <figure style="margin-top:16px">
-        <span class="tag relief">凸凹版・鏡の中の少女</span>
-        <img src="media/angle_test_B.webp" alt="凸凹版で、俯角と左右の角度を変えた少女の見え方" loading="lazy" width="2000" height="805">
-      </figure>
-      <figure>
-        <span class="tag flat">平らな版・鏡の中の少女</span>
-        <img src="media/flat_angle_test_B.webp" alt="平らな版で、俯角と左右の角度を変えた少女の見え方" loading="lazy" width="2000" height="805">
-        <figcaption>並びは上と同じ。</figcaption>
-      </figure>
-      <figure style="margin-top:16px">
-        <span class="tag relief">凸凹版・距離</span>
-        <img src="media/distance_test.webp" alt="凸凹版で、見る距離を変えた見え方" loading="lazy" width="2000" height="805">
-      </figure>
-      <figure>
-        <span class="tag flat">平らな版・距離</span>
-        <img src="media/flat_distance_test.webp" alt="平らな版で、見る距離を変えた見え方" loading="lazy" width="2000" height="805">
-        <figcaption>見る距離を 0.5 m / 0.7 m / 1 m / 2 m / 無限遠と変えた比較（透視投影）。各版の上段：赤富士、下段：鏡の中の少女。</figcaption>
+        <span class="tag">鏡の中の少女</span>
+        <img src="media/flat_angle_test_B.webp" alt="俯角と左右の角度を変えた少女の見え方" loading="lazy" width="2000" height="805">
+        <figcaption>上段は俯角 30° / 38° / 45° / 52° / 60°、下段は俯角 45° のまま左右 −30° / −15° / 0° / +15° / +30°（再現）。</figcaption>
       </figure>
     </div>
     <div class="scroll" style="margin-top:16px">
       <table>
-        <tr><th>条件</th><th>凸凹版</th><th>平らな版</th></tr>
-        <tr><td>俯角 38〜45°</td><td>どちらの絵もはっきり読める</td><td>どちらの絵もはっきり読める</td></tr>
-        <tr><td>俯角 52〜60°</td><td>読める（少し縦に伸び縮みする）</td><td>読めるが、もう一方の絵の輪郭が透けてくる（52° でうっすら、60° ではっきり）</td></tr>
-        <tr><td>俯角 30°</td><td>崩れ始める（面が溝を隠して黒い筋が出る。とくに赤富士）</td><td>読める</td></tr>
-        <tr><td>左右 ±15°</td><td colspan="2">読める（絵が傾き、少し歪む）</td></tr>
-        <tr><td>左右 ±30°</td><td colspan="2">読めるが、大きく歪む</td></tr>
-        <tr><td>距離 0.5 m 以上</td><td colspan="2">問題なし（線が溶け合って明暗に見えるのは、およそ 1〜1.5 m から）</td></tr>
+        <tr><th>条件</th><th>見え方（再現）</th></tr>
+        <tr><td>俯角 30〜45°</td><td>どちらの絵もはっきり読める</td></tr>
+        <tr><td>俯角 52〜60°</td><td>読めるが、もう一方の絵の輪郭が透けてくる（52° でうっすら、60° ではっきり）</td></tr>
+        <tr><td>左右 ±15°</td><td>読める（絵が傾き、少し歪む）</td></tr>
+        <tr><td>左右 ±30°</td><td>読めるが、大きく歪む</td></tr>
+        <tr><td>距離 0.5 m 以上</td><td>問題なし（線が溶け合って明暗に見えるのは、およそ 1〜1.5 m から）</td></tr>
       </table>
     </div>
   </section>
 
-  <section>
-    <h2>照明と墨入れ</h2>
-    <p>絵は、溝に入れた墨の黒と、表面の地色の対比でいちばんはっきり出ます（下の③）。</p>
-    <ul>
-      <li><strong>墨なし（①②）：</strong>どちらの版も、溝の陰影でうっすらと絵が読めます。墨を入れると、ずっとはっきりします。</li>
-      <li><strong>斜めからの強い光（④）：</strong>凸凹版は、面の高さが 2 つの絵での線の位置の和で決まるので、一方の絵に縦の輪郭（富士の稜線や顔の輪郭）があると、その所で面が左右に傾きます。横からの強い光では、この傾きの陰影がもう一方の絵に透けて見えます。平らな版は面がほぼ平らなので、強い光でも透けは目立ちません。</li>
-    </ul>
-    <div class="stack">
-      <figure>
-        <span class="tag relief">凸凹版・手前から</span>
-        <img src="media/appearance_test_A.webp" alt="凸凹版で、墨と照明の条件を変えた赤富士の見え方" loading="lazy" width="2000" height="405">
-      </figure>
-      <figure>
-        <span class="tag flat">平らな版・手前から</span>
-        <img src="media/flat_appearance_test_A.webp" alt="平らな版で、墨と照明の条件を変えた赤富士の見え方" loading="lazy" width="2000" height="405">
-        <figcaption>左から ①墨なし・陰影なし ②墨なし・普通の照明（刷っただけ） ③墨あり・上からのやわらかい光 ④墨あり・斜めからの強い光 ⑤陰影を弱めた描き方（参考）。</figcaption>
-      </figure>
-      <figure style="margin-top:16px">
-        <span class="tag relief">凸凹版・鏡の中</span>
-        <img src="media/appearance_test_B.webp" alt="凸凹版で、墨と照明の条件を変えた少女の見え方" loading="lazy" width="2000" height="405">
-      </figure>
-      <figure>
-        <span class="tag flat">平らな版・鏡の中</span>
-        <img src="media/flat_appearance_test_B.webp" alt="平らな版で、墨と照明の条件を変えた少女の見え方" loading="lazy" width="2000" height="405">
-        <figcaption>並びは上と同じ。</figcaption>
-      </figure>
+  <!-- ============ 3. 設計データ ============ -->
+  <section id="data">
+    <h2><span class="num">3</span>平らな版の設計データ</h2>
+    <p>実際に刷った版の造形データです。Bambu Lab P1S の標準の 0.4 mm ノズルで刷れるように、寸法・溝の幅・溝の間の面の幅を実寸で決めています。<strong>スライサーで拡大・縮小しないでください。</strong>溝の幅がノズルに合わなくなり、錯視も崩れます。</p>
+    <div class="dl" style="margin-bottom:20px">
+      <a href="downloads/engraved_fuji_pearl_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 engraved_fuji_pearl_kit.zip</strong><span>STL、Bambu Studio 用プロジェクト、刷り方の説明（README）、設計スクリプト、元の絵 · 4.4 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_flat_p1s_n04_s15_stl.zip" download><strong>STL だけ</strong><span>engraved_fuji_pearl_flat_p1s_n04_s15.stl（zip）· 2 MB</span></a>
+      <a href="downloads/engraved_fuji_pearl_flat_p1s_n04_s15_project.3mf" download><strong>Bambu Studio プロジェクト</strong><span>3MF・P1S 0.4 nozzle・0.12mm Fine・Arachne・ブリムの設定入り · 1.5 MB</span></a>
     </div>
-    <p class="note" style="margin-top:16px">見せるときは、溝に墨を入れ、上から、やわらかく、手前と奥に均等に光を当ててください（大きなディフューザー付きのライト、曇りの日の窓辺など）。スポットライトや横からの強い光は避けます。このページの画像は、特に断りのないものは③の条件（墨あり・やわらかい光、陰影を抑える処理なし）で描いています。</p>
-  </section>
-
-  <section>
-    <h2>寸法</h2>
-    <p>このページの画像は、0.4 mm ノズル用の 2 つの版を実寸で描いたものです。平らな版は 110 × 150 × 5.3 mm（溝 71 本・等間隔・深さ 1.0 mm）、凸凹版は 110 × 150 × 17.5 mm（溝 84 本・幅 0.50〜1.06 mm・深さ 1.0 mm）です。絵の部分は、どちらの版もどちらから見ても 96 mm 角の正方形に見えます。</p>
-  </section>
-
-  <section id="print">
-    <h2>3D プリンター用のデータと設定（Bambu Lab P1S）</h2>
-    <p>どちらの版も実寸で設計しています。<strong>スライサーで拡大・縮小しないでください。</strong>溝の幅がノズルに合わなくなり、錯視も崩れます。どちらも P1S 標準の<strong>0.4 mm ノズル</strong>用です。</p>
-    <p>材料を<strong>白のマット PLA</strong>にすると、墨の線との対比が大きくなります。</p>
-    <div class="scroll">
-      <table>
-        <tr><th></th><th>平らな版</th><th>凸凹版</th></tr>
-        <tr><td>大きさ</td><td>110 × 150 × 5.3 mm</td><td>110 × 150 × 17.5 mm</td></tr>
-        <tr><td>溝</td><td>71 本・等間隔・深さ 1.0 mm</td><td>84 本・幅 0.50〜1.06・深さ 1.0 mm</td></tr>
-        <tr><td>最も細い溝 / 溝の間の壁</td><td colspan="2">0.50 mm / 0.50 mm</td></tr>
-        <tr><td>上面の起伏</td><td>±0.25 mm</td><td>−6.9 〜 +5.5 mm</td></tr>
-        <tr><td>工程・積層ピッチ</td><td colspan="2">0.12mm Fine @BBL X1C・0.12 mm</td></tr>
-        <tr><td>壁生成</td><td colspan="2">Arachne（P1S 用のプリセットの既定は Classic なので切り替える）</td></tr>
-        <tr><td>インフィル</td><td colspan="2">15 %</td></tr>
-        <tr><td>造形時間・材料の目安</td><td>約 1 時間 40 分・52 g</td><td>約 3 時間 45 分・79 g</td></tr>
-        <tr><td>サポート・ブリム</td><td>サポート不要・外側ブリム 3 mm（薄板の反りを抑える）</td><td>どちらも不要</td></tr>
-        <tr><td>材料</td><td colspan="2">白のマット PLA（木地色・ベージュも可）</td></tr>
-      </table>
-    </div>
-    <ul>
-      <li><strong>置き方：</strong>彫った面を上にして平らに置きます。</li>
-      <li><strong>墨入れ：</strong>造形後、溝に黒のアクリル絵の具（または墨）を流し込み、乾く前に固く絞った布で表面を拭き取ります。溝の中だけが黒く残ります。</li>
-      <li><strong>2 色刷りは勧めません：</strong>AMS で溝だけ黒く刷ろうとしても、溝の間の面は押し出し 1 本ぶんの幅しかないため、実際の G-code では面の中身がほぼ黒で刷られ、地色は一番上の 1 層だけになります。単色で刷って墨入れしてください。</li>
-      <li><strong>凸凹版の積層の筋：</strong>緩い斜面には、積層の段差が等高線のような筋になって出ます。可変積層ピッチで上面付近を細かくすると目立ちにくくなります。</li>
-      <li><strong>スライスでの確認：</strong>Bambu Studio の P1S 用の公式プリセットで実際にスライスし、G-code の押し出し経路を設計の断面と重ねて確かめました。平らな版は、溝の間の面の欠けも、ふさがった溝もありませんでした。凸凹版は、溝は埋まらず、刷られないのは傾いた壁の頂上で断面が細くなる所（積層の段差）の一部だけです。</li>
-      <li><strong>Bambu Studio 用プロジェクト：</strong>下の 3MF を開くと、P1S・0.4 mm ノズル・工程・フィラメントと Arachne の設定が入った状態になります。「スライス」を押せばそのまま刷れます。</li>
-      <li><strong>確認してほしいこと：</strong>実物はまだ刷っていません。初めての場合は、絵の一部を 30 mm 角ほど切り出して試し刷りすると安全です。</li>
-    </ul>
-    <div class="dl" style="margin-top:16px">
-      <a href="downloads/engraved_fuji_pearl_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 engraved_fuji_pearl_kit.zip</strong><span>STL 2 種（平らな版・凸凹版）、Bambu Studio 用プロジェクト 2 つ、印刷設定の説明（README）、設計スクリプト、元の絵 · 17 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_flat_p1s_n04_s15_stl.zip" download><strong>平らな版の STL</strong><span>engraved_fuji_pearl_flat_p1s_n04_s15.stl（zip）· 2 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n04_s15_stl.zip" download><strong>凸凹版の STL</strong><span>engraved_fuji_pearl_p1s_n04_s15.stl（zip）· 9 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_flat_p1s_n04_s15_project.3mf" download><strong>平らな版の Bambu Studio プロジェクト</strong><span>3MF・P1S 0.4 nozzle・0.12mm Fine・Arachne・ブリムの設定入り · 1.5 MB</span></a>
-      <a href="downloads/engraved_fuji_pearl_p1s_n04_s15_project.3mf" download><strong>凸凹版の Bambu Studio プロジェクト</strong><span>3MF・P1S 0.4 nozzle・0.12mm Fine・Arachne の設定入り · 5 MB</span></a>
-    </div>
-  </section>
-
-  <section id="pair">
-    <p class="eyebrow" style="margin-bottom:4px">BONUS · おまけ</p>
-    <h2>2 枚組「星月夜 ⇄ 雷神」「ローヌ川の星月夜 ⇄ 風神」</h2>
-    <p>同じ変身立体の原理で作った 2 枚組です。左に置く 1 枚は手前から見るとゴッホ「星月夜」、右に置く 1 枚は「ローヌ川の星月夜」。2 枚を並べて奥に鏡を立てると、鏡の中には俵屋宗達「風神雷神図屏風」の雷神（左）と風神（右）が、元の屏風と同じ並びで現れます。鏡は奥行きだけを反転するので、左右は入れ替わりません。</p>
     <div class="pair">
-      <figure>
-        <img src="media/pair_mirror_showcase.webp" alt="手前に 2 つの星月夜、奥の鏡の中に雷神と風神が並ぶ展示写真" loading="lazy" width="1400" height="1750">
-        <figcaption>2 枚の間を 2 cm ほどあけて並べ、奥に鏡を 1 枚立てた展示写真（Blender で実寸の立体を描いたもの）。</figcaption>
-      </figure>
-      <div>
-        <figure>
-          <img src="media/pair_in_mirror.webp" alt="鏡の中の像。左に雷神、右に風神" loading="lazy" width="1600" height="800">
-          <figcaption>鏡の中だけを拡大したもの。金地の余白を残し、二神が外側から中央の空白を挟んで向き合います。</figcaption>
-        </figure>
-        <figure style="margin-top:16px">
-          <img src="media/pair_front.webp" alt="手前から見た 2 枚。左に星月夜、右にローヌ川の星月夜" loading="lazy" width="1600" height="652">
-          <figcaption>手前から見た 2 枚（左：星月夜、右：ローヌ川の星月夜）。</figcaption>
-        </figure>
+      <div class="scroll">
+        <table>
+          <tr><th colspan="2">形</th></tr>
+          <tr><td>板の大きさ</td><td>110 × 150 × 5.3 mm</td></tr>
+          <tr><td>絵の部分</td><td>手前からも鏡の中でも 96 mm 角の正方形に見える</td></tr>
+          <tr><td>溝</td><td>71 本・等間隔（1.92 mm）・深さ 1.0 mm</td></tr>
+          <tr><td>最も細い溝 / 溝の間の面</td><td>0.50 mm / 0.50 mm</td></tr>
+          <tr><td>上面の起伏</td><td>±0.25 mm 程度</td></tr>
+          <tr><td>設計した視点</td><td>俯角 45°・平行投影</td></tr>
+        </table>
+      </div>
+      <div class="scroll">
+        <table>
+          <tr><th colspan="2">刷り方（Bambu Studio）</th></tr>
+          <tr><td>プリンター</td><td>Bambu Lab P1S・0.4 mm ノズル</td></tr>
+          <tr><td>工程・積層ピッチ</td><td>0.12mm Fine @BBL X1C・0.12 mm</td></tr>
+          <tr><td>壁生成</td><td>Arachne（溝の間の細い面を 1 本の壁で出す）</td></tr>
+          <tr><td>インフィル</td><td>15 %</td></tr>
+          <tr><td>サポート・ブリム</td><td>サポート不要・外側ブリム 3 mm（薄板の反りを抑える）</td></tr>
+          <tr><td>材料</td><td>明るい色のマット PLA（1 色）</td></tr>
+          <tr><td>造形時間・材料</td><td>約 1 時間 40 分・52 g</td></tr>
+        </table>
       </div>
     </div>
-    <p style="margin-top:16px">赤富士の凸凹版と違い、溝は<strong>等間隔</strong>で、上面の起伏はほぼありません（±0.3 mm）。赤富士の平らな版と同じ作り方です。明暗は、溝と溝の間の面の「見かけの幅」だけで描きます。面の手前の縁と奥の縁の高さを少し変えると、手前での見かけの幅と鏡での見かけの幅を別々に決められるので、片方の絵はもう一方にほとんど透けません。色と筆のタッチで描かれた星月夜の渦や星も、この方式で出せるようになりました。溝の間の面の見かけの幅は、手前・鏡それぞれ線の間隔の 18〜82 % の範囲で決めています。最初に公開した版（26〜74 %）より、明暗の差がはっきり出ます。1 枚の大きさは 135.7 × 150 mm（長辺 15 cm）、厚さ 5 mm の薄い板で、刷る時間は 1 枚約 2 時間半（0.4 mm ノズル・単色）です。溝の幅と溝の間の面の幅はノズルに合わせてあるので、15 cm にしたぶん溝の本数が減り、線は最初の版（長辺 24 cm）より粗くなっています。</p>
-    <div class="scroll" style="margin-top:8px">
-      <table>
-        <tr><th></th><th>0.4 mm ノズル用（P1S 標準）</th></tr>
-        <tr><td>大きさ（1 枚）</td><td>135.7 × 150.0 × 5.2〜5.3 mm</td></tr>
-        <tr><td>絵の部分（見かけ）</td><td>126 × 99 mm</td></tr>
-        <tr><td>溝</td><td>73 本・等間隔・深さ 1.0 mm</td></tr>
-        <tr><td>最も細い溝 / 溝の間の面</td><td>0.50 mm / 0.50 mm</td></tr>
-        <tr><td>工程・積層ピッチ</td><td>0.12mm Fine・0.12 mm</td></tr>
-        <tr><td>造形時間・材料の目安（1 枚）</td><td>約 2 時間 15 分〜2 時間半・66 g</td></tr>
-        <tr><td>設定</td><td>Arachne・インフィル 15 %・サポートなし・外側ブリム 3 mm・明るい色のマット PLA</td></tr>
-      </table>
-    </div>
-    <ul>
-      <li><strong>実寸で設計しています。</strong>スライサーで拡大・縮小しないでください。</li>
-      <li><strong>置き方：</strong>彫った面を上にして平らに置きます（Bambu Studio 用のプロジェクトでは台の中央に置いてあります）。</li>
-      <li><strong>単色で刷って墨入れします。</strong>赤富士の版と同じく、造形後に溝に墨を入れます。</li>
-      <li><strong>2 色刷りは勧めません：</strong>プロジェクト 3MF を開くと溝が黒・地がベージュに塗られて見えますが、溝の間の面は押し出し 1 本ぶんの幅しかないため、実際の G-code では面の中身がほぼ黒で刷られ、地色は一番上の 1 層だけになります（G-code を色ごとに調べた結果）。表示より暗く、にごって見えるおそれがあります。</li>
-      <li><strong>Bambu Studio で鏡の中の像を見るには：</strong>視点を板の奥側に回し、斜め 45° ほど上から見下ろします。雷神・風神が見えます（鏡を通さず奥から直接見るので、左右は反転しています）。</li>
-      <li><strong>確認してほしいこと：</strong>Bambu Studio でスライスして警告が出ないこと、G-code 上で溝がふさがらないことは確かめましたが、実物はまだ刷っていません。</li>
+    <ul style="margin-top:16px">
+      <li><strong>置き方：</strong>彫った面を上にして平らに置きます。上面のどの点も真上から見える形で、オーバーハングはありません。</li>
+      <li><strong>スライスでの確認：</strong>P1S 用の公式プリセットでスライスし、G-code の押し出しの経路を設計の断面と重ねて確かめました。溝のある深さの全層で、欠けた面もふさがった溝もありませんでした。</li>
+      <li><strong>仕上げ：</strong>刷ったままで絵が見えます。線をよりはっきりさせたい場合は、溝に黒のアクリル絵の具（または墨）を流し込み、乾く前に固く絞った布で表面を拭き取ります。</li>
+      <li><strong>2 色刷りは勧めません：</strong>AMS で溝だけ黒く刷ろうとしても、溝の間の面は押し出し 1 本ぶんの幅しかないため、面の中身がほぼ黒で刷られ、地色は一番上の 1 層だけになります。</li>
+      <li><strong>見せ方：</strong>奥に鏡を立て、俯角 45° かそれより少し低い位置から見下ろします。上から、やわらかく、手前と奥に均等に光を当てると、透けが目立ちません。</li>
+      <li><strong>設計のプログラム：</strong>設計・STL と 3MF の書き出し・G-code の照合・Blender での再現のスクリプトを一式に入れています（Python・numpy・Blender）。コードの設計は Claude Code で行いました。</li>
     </ul>
-    <div class="dl" style="margin-top:16px">
-      <a href="downloads/starry_fujin_raijin_pair_kit.zip" download style="grid-column: 1 / -1"><strong>データ一式 starry_fujin_raijin_pair_kit.zip</strong><span>STL 2 つ（2 枚 × 0.4 mm ノズル）、Bambu Studio 用プロジェクト 2 つ、説明（README）、設計スクリプト、元の絵 · 19 MB</span></a>
-      <a href="downloads/starry_fujin_raijin_pair_n04_s15_stl.zip" download style="grid-column: 1 / -1"><strong>0.4 mm ノズル用 STL（2 枚）</strong><span>pair_starry_raijin・pair_rhone_fujin（zip）· 8 MB</span></a>
-      <a href="downloads/pair_starry_raijin_p1s_n04_s15_project.3mf" download><strong>Bambu Studio プロジェクト：星月夜 ⇄ 雷神</strong><span>3MF・P1S 0.4 nozzle・0.12mm Fine・Arachne の設定入り · 2.6 MB</span></a>
-      <a href="downloads/pair_rhone_fujin_p1s_n04_s15_project.3mf" download><strong>Bambu Studio プロジェクト：ローヌ川の星月夜 ⇄ 風神</strong><span>3MF・P1S 0.4 nozzle・0.12mm Fine・Arachne の設定入り · 2.5 MB</span></a>
-    </div>
   </section>
 
   <footer>
-    <p>錯視の原理：杉原厚吉「変身立体」（<a href="https://www.isc.meiji.ac.jp/~kokichis/ambiguousc/ambiguouscylinderj.html">解説ページ</a>）。元の絵はいずれもパブリックドメインです（Wikimedia Commons）：葛飾北斎「冨嶽三十六景 凱風快晴」、ヨハネス・フェルメール「真珠の耳飾りの少女」、フィンセント・ファン・ゴッホ「星月夜」「ローヌ川の星月夜」、俵屋宗達「風神雷神図屏風」。溝の設計と彫りの形状は、このページのために新たに作ったものです。</p>
-    <p>関連：<a href="https://masaki425.github.io/ambiguous-cylinder/">見る向きで四角と丸が入れ替わる柱体</a></p>
+    <p>着想：杉原厚吉「変身立体」（<a href="https://www.isc.meiji.ac.jp/~kokichis/ambiguousc/ambiguouscylinderj.html">解説ページ</a>）。元の絵はいずれもパブリックドメインです（Wikimedia Commons）：葛飾北斎「冨嶽三十六景 凱風快晴」、ヨハネス・フェルメール「真珠の耳飾りの少女」。溝の設計と造形データは、この作品のために新たに作ったものです。</p>
+    <p>© 渡部匡己、杉永友美、渡辺英治（基礎生物学研究所）</p>
   </footer>
 </div>
 
 <script>
   const AZ = Array.from({ length: 24 }, (_, i) => i * 15);
-  // 方位ごとの見え方（24 方向のレンダリングを見て分類）
+  // 方位ごとの見え方（24 方向の再現を見て分類）
   function noteFor(a) {
     const d = Math.min(a, 360 - a);            // 手前からのずれ（0〜180°）
     if (d === 0) return "— 手前から（赤富士）";
@@ -457,7 +393,6 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     return "— 真後ろから直接（少女・左右反転）";
   }
   const main = document.getElementById("az-main");
-  const mainFlat = document.getElementById("az-main-flat");
   const range = document.getElementById("az-range");
   const readout = document.getElementById("az-readout");
   const note = document.getElementById("az-note");
@@ -468,17 +403,15 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
     const b = document.createElement("button");
     b.type = "button";
     b.setAttribute("aria-label", `方位 ${a}°`);
-    b.innerHTML = `<span><img src="media/view_az${pad(a)}.webp" alt="" loading="lazy" width="1200" height="1200"><img src="media/flat_view_az${pad(a)}.webp" alt="" loading="lazy" width="1200" height="1200"></span>`;
+    b.innerHTML = `<img src="media/flat_view_az${pad(a)}.webp" alt="" loading="lazy" width="1200" height="1200">`;
     b.addEventListener("click", () => { range.value = i; show(i); });
     grid.appendChild(b);
   });
 
   function show(i) {
     const a = AZ[i];
-    main.src = `media/view_az${pad(a)}.webp`;
-    main.alt = `凸凹版を方位${a}度から見た像`;
-    mainFlat.src = `media/flat_view_az${pad(a)}.webp`;
-    mainFlat.alt = `平らな版を方位${a}度から見た像`;
+    main.src = `media/flat_view_az${pad(a)}.webp`;
+    main.alt = `方位${a}度から見た像`;
     readout.textContent = `${a}°`;
     note.textContent = noteFor(a);
     [...grid.children].forEach((b, j) => b.setAttribute("aria-current", j === +i ? "true" : "false"));
@@ -487,22 +420,15 @@ z = Z0 + (vA + vB) / (2 cos e)      （e = 45°、Z0 は上面の高さ）</div>
   show(0);
 
   const B = {
-    mirror: ["view_B_pearl_earring_in_mirror.webp", "鏡の中", "同じ立体を鏡に映すと、フェルメールの少女が現れる。0.4 mm ノズル用では線が粗く、凸凹版では目・鼻・口がうっすらと見える程度。平らな版の方が、目や口がはっきり出る。"],
-    direct: ["view_B_direct_from_behind.webp", "裏へ回って直接", "裏へ回って直接見ると、少女は正立のまま左右だけ反転する。"],
+    mirror: ["flat_view_B_pearl_earring_in_mirror.webp", "鏡の中"],
+    direct: ["flat_view_B_direct_from_behind.webp", "裏へ回って直接（左右反転）"],
   };
-  const bCap = document.getElementById("b-cap");
   document.querySelectorAll(".toggle button").forEach(btn => btn.addEventListener("click", () => {
-    const [file, label, cap] = B[btn.dataset.b];
-    document.querySelectorAll(".b-img").forEach(img => { img.src = `media/${img.dataset.v}${file}`; });
-    document.querySelectorAll("[data-b-label]").forEach(t => { t.textContent = t.textContent.split("・")[0] + "・" + label; });
-    bCap.textContent = cap;
+    const [file, label] = B[btn.dataset.b];
+    document.getElementById("b-img").src = `media/${file}`;
+    document.getElementById("b-label").textContent = label;
     document.querySelectorAll(".toggle button").forEach(x => x.setAttribute("aria-pressed", x === btn ? "true" : "false"));
   }));
-
-  document.getElementById("play-both").addEventListener("click", () => {
-    const vs = [...document.querySelectorAll("section video")].slice(0, 2);
-    vs.forEach(v => { v.currentTime = 0; v.play(); });
-  });
 </script>
 </body>
 </html>
