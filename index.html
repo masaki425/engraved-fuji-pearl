@@ -110,6 +110,13 @@
   th, td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
   th { color: var(--muted); font-weight: 500; white-space: nowrap; }
   .scroll { overflow-x: auto; }
+  ol.steps { padding-left: 1.4em; }
+  ol.steps li + li { margin-top: 10px; }
+  .role { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .role > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+  .role h4 { margin: 0 0 6px; font-size: 1rem; }
+  .role ul { margin: 0; padding-left: 1.2em; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88em; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
   .dl { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .dl a { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; color: var(--ink); text-decoration: none; }
   .dl a:hover { border-color: var(--accent); }
@@ -120,7 +127,7 @@
 
   @media (max-width: 720px) {
     header { padding-top: 32px; }
-    .hero, .pair, .dl { grid-template-columns: 1fr; }
+    .hero, .pair, .dl, .role { grid-template-columns: 1fr; }
     .tri { grid-template-columns: 1fr 1fr; }
     .grid24 { grid-template-columns: repeat(6, 1fr); gap: 4px; }
   }
@@ -141,6 +148,7 @@
           <li><a href="#result">1. 3D プリンターで刷った結果</a></li>
           <li><a href="#principle">2. 錯視の原理</a></li>
           <li><a href="#data">3. 平らな版の設計データ</a></li>
+          <li><a href="#code">4. 設計コードの作り方</a></li>
         </ul>
       </div>
       <figure>
@@ -371,6 +379,71 @@ wB = Δy sin e − Δz cos e</div>
       <li><strong>見せ方：</strong>奥に鏡を立て、俯角 45° かそれより少し低い位置から見下ろします。上から、やわらかく、手前と奥に均等に光を当てると、透けが目立ちません。</li>
       <li><strong>設計のプログラム：</strong>設計・STL と 3MF の書き出し・G-code の照合・Blender での再現のスクリプトを一式に入れています（Python・numpy・Blender）。コードの設計は Claude Code で行いました。</li>
     </ul>
+  </section>
+
+  <!-- ============ 4. 設計コード ============ -->
+  <section id="code">
+    <h2><span class="num">4</span>設計コードの作り方</h2>
+    <p>形を決めるプログラムは、Anthropic の AI コーディングエージェント <strong>Claude Code</strong> との対話で作りました。人が作品の方針を決めて出来を評価し、Claude Code が式の導出からプログラム・検証・再現画像までを受け持つ、という分担です。作業は 2026 年 9 月 25 日から 30 日までの約 1 週間で、最終的なスクリプトは Python で約 1,500 行です。</p>
+
+    <div class="role">
+      <div>
+        <h4>人（作者）が決めたこと</h4>
+        <ul>
+          <li>作品の方針：杉原先生の変身立体の原理で、見る向きで別の名画に見せる</li>
+          <li>ルール：塗りは見る向きによらず 1 通りにする。裏表で色を塗り分けるのは錯視ではないので使わない</li>
+          <li>絵の組み合わせ（よく知られた名画から選ぶ）</li>
+          <li>再現画像を見ての評価と、直す方向の指示</li>
+          <li>3D プリンターでの試し刷りと、実物での確認</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Claude Code が行ったこと</h4>
+        <ul>
+          <li>原理の式の導出と、溝の形を決めるアルゴリズムの設計</li>
+          <li>Python（numpy）での実装と、寸法・刷れる幅の自動検証</li>
+          <li>Bambu Studio の表示と Blender での再現画像づくりと、その画像を自分で見て出来を確かめること</li>
+          <li>Bambu Studio のコマンドラインでのスライスと、G-code の照合</li>
+          <li>説明の文書と、このページ</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>作った順番</h3>
+    <p>いきなりこの作品を作ったのではなく、原理を確かめる小さな作品から順に、プログラムを育てました。</p>
+    <ol class="steps">
+      <li><strong>変身立体の再現：</strong>杉原先生の「四角と丸が入れ替わる柱体」を Blender で組み立て、手前と奥から見た像を描いて、「2 つの像での上下位置から空間の点が 1 つに決まる」という式を確かめました。</li>
+      <li><strong>切り絵の変身画：</strong>同じ式を、奥行き方向に並べた切り絵の壁の縁に当て、手前では風景、鏡の中では群衆に見える箱を作りました。ここで、2 枚の絵から縁の空間曲線を作る部分ができました。</li>
+      <li><strong>線刻の変身画：</strong>壁の縁を、板に彫った溝の縁に置き換えました。溝を等間隔に並べ、溝の間の面の「見かけの幅」だけで明暗を描きます。面が傾くと照明で明るさが変わり、もう一方の絵が透けます。そこで Bambu Studio の表示の照明を再現し、2 つの絵の明るさの式を連立で解いて、傾きの陰影まで打ち消すようにしました。この方式は、まず別の絵の組み合わせで作って確かめました。</li>
+      <li><strong>赤富士と少女：</strong>3 の設計プログラムをそのまま使い、絵を赤富士と少女に、大きさを長辺 15 cm に差し替えました。上面の起伏は ±0.25 mm になりました。</li>
+      <li><strong>試し刷り：</strong>P1S で刷り、実物で 2 つの絵が入れ替わることを確かめました（1 章）。</li>
+    </ol>
+
+    <h3>設計プログラムの流れ</h3>
+    <p>設計のプログラムは numpy だけで動き、絵の読み込みから STL の書き出しまでを一度に行います。そのあとのスライスと再現は、Bambu Studio と Blender を外から動かします。</p>
+    <div class="scroll">
+      <table>
+        <tr><th>段階</th><th>すること</th><th>スクリプト</th></tr>
+        <tr><td>① 絵の読み込み</td><td>名画の画像を正方形に切り抜き、色の配列にする</td><td><code>convert_images.py</code></td></tr>
+        <tr><td>② 明暗を作る</td><td>絵ごとに明暗の出し方を決める。赤富士は青を重く見て、空と雪を明るく、赤い山を暗くする。少女は局所的な明暗の差を 1.5 倍に強め、目・鼻・口を立てる</td><td><code>design_flat.py</code></td></tr>
+        <tr><td>③ 面の幅を解く</td><td>71 本の溝の間の面ごとに、手前と鏡での見かけの幅（溝の間隔の 18〜82 %）を、2 つの絵の明るさが狙いどおりになるよう連立で解く。溝と面の幅は 0.5 mm 以上、面の傾きは上限以下という制約を守る</td><td><code>design.py</code>（<code>solve</code>）</td></tr>
+        <tr><td>④ 溝の縁を作る</td><td>見かけの幅から、各溝の手前の縁と奥の縁の空間曲線を、原理の式で求める</td><td><code>design.py</code>（<code>build_edges</code>）</td></tr>
+        <tr><td>⑤ 自動検証</td><td>最も細い溝と面が 0.5 mm 以上か、面の傾き、板が造形エリア（256 mm）に収まるかを調べる</td><td><code>design.py</code>（<code>validate</code>）</td></tr>
+        <tr><td>⑥ 見え方の再現</td><td>Bambu Studio のシェーダと同じ照明で、俯角 45° の手前と鏡の中の像を描く。透けの量もここで測る</td><td><code>design.py</code>（<code>render</code>）</td></tr>
+        <tr><td>⑦ 立体にする</td><td>上面を三角形のメッシュにし、どの辺もちょうど 2 枚の面で共有する閉じた立体かを確かめて、STL・3MF に書き出す</td><td><code>design.py</code>（<code>mesh</code>）</td></tr>
+        <tr><td>⑧ スライス</td><td>Bambu Studio のコマンドラインで、P1S 用の公式プリセットに Arachne などの設定を重ねてスライスする</td><td><code>slice_p1s.py</code></td></tr>
+        <tr><td>⑨ G-code の照合</td><td>押し出しの経路を線幅ぶんの太さにして、設計の断面と層ごとに重ねる。欠けた面とふさがった溝を数える（どちらも 0）</td><td><code>check_lands.py</code></td></tr>
+        <tr><td>⑩ 実寸での再現</td><td>Blender に実寸の板・鏡・照明・カメラを置き、展示写真や一周する動画、角度を変えた比較を描く</td><td><code>build_blend.py</code></td></tr>
+      </table>
+    </div>
+
+    <h3>確かめながら進めるための工夫</h3>
+    <ul>
+      <li><strong>刷る前に、画面の上で見え方を確かめる：</strong>3D プリントは 1 回に 1〜2 時間かかります。そこで、Bambu Studio の照明を式で再現する機能をプログラムに持たせ、形を変えるたびに、2 つの絵と透けの量を数秒で確かめられるようにしました。Claude Code はこの画像を自分で読み、透けや崩れがないかを確かめてから報告します。</li>
+      <li><strong>「刷れる」ことを数で確かめる：</strong>設計上は刷れるはずでも、スライサーが細い面を省くことがあります。そこで G-code を読み、設計の断面と重ねて、全層で面が欠けないこと・溝がふさがらないことを数えて確かめました。</li>
+      <li><strong>人の評価で方向を直す：</strong>数値ではよく見えても、再現画像や実物を作者が見て気になる点が出れば、方式から作り直しました。</li>
+    </ul>
+    <p>プログラムはすべて、3 章の「データ一式」の <code>scripts/</code> に入っています。</p>
   </section>
 
   <footer>
