@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="日本で買える 2 色フィラメントで、線刻の変身画（赤富士と少女）を違う色に見せる向きに刷ったときの見え方の再現と判定。">
+<title>2 色フィラメント適性表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+
+/* 配置：上に判定の内訳と手本、その下にタブ（比較表・メーカー・日本で手に入るメーカー・判定のしかた）。表は造形板の灰色の地に、判定を左端の色帯で示す */
+:root{
+  --bg:#eef0f1; --panel:#ffffff; --ink:#1b2126; --muted:#5b666e; --line:#d6dbde; --accent:#25607a;
+  --good:#2f7d4f; --good-bg:#e3f1e8; --warn:#9a6a10; --warn-bg:#f7eed8; --bad:#a83a32; --bad-bg:#f6e2df;
+  --font-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --font-data:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14181b; --panel:#1c2226; --ink:#e3e8eb; --muted:#97a3ab; --line:#2f383e; --accent:#7fb6cf;
+  --good:#7cc79a; --good-bg:#1d3326; --warn:#e2b55a; --warn-bg:#382d17; --bad:#ec8a80; --bad-bg:#3d211e; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14181b; --panel:#1c2226; --ink:#e3e8eb; --muted:#97a3ab; --line:#2f383e; --accent:#7fb6cf;
+  --good:#7cc79a; --good-bg:#1d3326; --warn:#e2b55a; --warn-bg:#382d17; --bad:#ec8a80; --bad-bg:#3d211e; color-scheme:dark}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.6}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:grid;gap:22px}
+h1{font-size:1.75rem;font-weight:700;margin:0;letter-spacing:.02em;text-wrap:balance}
+.lede{margin:4px 0 0;color:var(--muted);max-width:68ch}
+.num{font-family:var(--font-data);font-variant-numeric:tabular-nums}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;gap:2px}
+.stat b{font-size:1.5rem;font-family:var(--font-data);font-weight:500}
+.stat span{color:var(--muted);font-size:.85rem}
+.stat.good b{color:var(--good)} .stat.warn b{color:var(--warn)} .stat.bad b{color:var(--bad)}
+.anchors{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;font-size:.9rem}
+.anchors p{margin:0;padding:10px 14px;border-left:3px solid var(--line);background:var(--panel)}
+.anchors .g{border-color:var(--good)} .anchors .b{border-color:var(--bad)}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--line)}
+.tabs button{font:inherit;background:none;border:0;border-bottom:2px solid transparent;padding:8px 12px;color:var(--muted);cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--accent);font-weight:700}
+.tabs button:focus-visible,.chip:focus-visible,select:focus-visible,input:focus-visible,.pager button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.filters{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+.filters label{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.85rem}
+input[type=search],select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 8px}
+input[type=search]{min-width:0;width:min(260px,100%)}
+.chip{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:3px 11px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.count{color:var(--muted);font-size:.85rem}
+.tablebox{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;min-width:980px}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:.78rem;color:var(--muted);font-weight:500;letter-spacing:.04em;white-space:nowrap;position:sticky;top:0;background:var(--panel)}
+th[data-k]{cursor:pointer} th[data-k]:hover{color:var(--ink)}
+td.n{font-family:var(--font-data);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+tr.v-good td:first-child{box-shadow:inset 3px 0 0 var(--good)} tr.v-warn td:first-child{box-shadow:inset 3px 0 0 var(--warn)} tr.v-bad td:first-child{box-shadow:inset 3px 0 0 var(--bad)}
+.sw{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:inline-block;vertical-align:middle}
+.thumb{width:112px;height:56px;background-repeat:no-repeat;background-size:1120px 560px;border-radius:3px;cursor:zoom-in;display:block}
+.thumb.big{width:256px;height:128px;background-size:2560px 1280px;cursor:zoom-out}
+.pill{display:inline-block;font-size:.78rem;border-radius:3px;padding:1px 8px;white-space:nowrap}
+.pill.good{background:var(--good-bg);color:var(--good)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)}
+.why{display:block;font-size:.75rem;color:var(--muted)}
+.maker{font-weight:500} .sub{display:block;color:var(--muted);font-size:.8rem}
+.est{color:var(--muted)}
+a{color:var(--accent)}
+.jp{font-size:.72rem;border:1px solid var(--accent);color:var(--accent);border-radius:3px;padding:0 4px;margin-left:4px;white-space:nowrap}
+.pager{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pager button{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:4px 10px;cursor:pointer}
+.pager button:disabled{opacity:.4;cursor:default}
+.prose{max-width:72ch;display:grid;gap:10px}
+.prose h3{margin:8px 0 0;font-size:1rem}
+.prose p,.prose li{margin:0}
+.prose code{font-family:var(--font-data);font-size:.85em}
+@media (prefers-reduced-motion:no-preference){.thumb{transition:width .15s,height .15s}}
+
+.pairs{display:grid;gap:4px}
+.pairs small{display:block;font-size:.7rem;color:var(--muted);line-height:1.2}
+.chips2{display:flex;gap:3px}
+.back{margin:0;font-size:.9rem}
+.note{background:var(--panel);border-left:3px solid var(--warn);padding:10px 14px;max-width:80ch;margin:0}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="back"><a href="../../">← 生成アート錯視：赤富士と少女</a> ・ <a href="../">フィラメント適性表（1 色）</a></p>
+  <header>
+    <h1>2 色フィラメント適性表</h1>
+    <p class="lede">1 本の断面が 2 色に分かれたフィラメント（共押し出し、「デュアルカラー」）のうち、日本で買えるものの一覧です。線刻の変身画「赤富士 ⇄ 真珠の耳飾りの少女」平らな版（P1S・0.4 mm ノズル・長辺 15 cm）を墨なしで刷ったときの見え方を、俯角 45° で再現しました。</p>
+  </header>
+  <p class="note"><b>赤富士と少女を違う色で見せる向きにそろえて描いています。</b>色の分かれ目を前後に向け、手前を向いた壁を色 1、奥（鏡の側）を向いた壁を色 2 にしました。赤富士は色 1 寄り、鏡の中の少女は色 2 寄りに見えます。上面は 2 色が半分ずつです。</p>
+
+  <section class="summary" id="summary" aria-label="判定の内訳"></section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="table">全色の比較表</button>
+    <button role="tab" aria-selected="false" data-tab="makers">メーカーと入手先</button>
+    <button role="tab" aria-selected="false" data-tab="how">判定のしかた</button>
+  </nav>
+
+  <section id="p-table" class="panel-sec" style="display:grid;gap:12px">
+    <div class="filters">
+      <input type="search" id="q" placeholder="メーカー・色名で検索" aria-label="検索">
+      <label>メーカー <select id="brand"></select></label>
+      <label>並び <select id="sort"><option value="v">判定（よい順）</option><option value="c">弱いほうの絵の強さ（大きい順）</option><option value="l">相手の絵の混ざり（小さい順）</option><option value="d">明るさの差（小さい順）</option><option value="e">色の差（大きい順）</option><option value="m">メーカー名</option></select></label>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="tablebox"><table style="min-width:1240px">
+      <thead><tr><th>判定</th><th>再現（手前の赤富士／鏡の中の少女）</th><th>2 色</th><th>メーカー・製品</th><th>色名</th>
+        <th style="text-align:right">赤富士の強さ</th><th style="text-align:right">少女の強さ</th><th style="text-align:right">相手の絵の混ざり</th><th style="text-align:right">2 色の明るさの差 ΔL*</th><th style="text-align:right">赤富士と少女の色の差 ΔE</th><th>色の出どころ</th><th>リンク</th></tr></thead>
+      <tbody id="tb"></tbody></table></div>
+  </section>
+
+  <section id="p-makers" class="panel-sec" hidden style="gap:12px">
+    <p class="lede">日本の公式ストア・Amazon.co.jp・日本語の通販サイトで買えることを確かめた製品です。</p>
+    <div class="tablebox"><table style="min-width:760px"><thead><tr><th>メーカー</th><th>製品</th><th style="text-align:right">色数</th><th>日本での入手先</th></tr></thead><tbody id="tm"></tbody></table></div>
+    <p class="lede">2 色品はあるが、日本で買えることを確かめられなかったもの（表には入れていません）：</p>
+    <div class="tablebox"><table style="min-width:760px"><thead><tr><th>メーカー</th><th>製品</th><th>見つかった色</th><th>理由</th></tr></thead><tbody id="tu"></tbody></table></div>
+  </section>
+
+  <section id="p-how" class="panel-sec prose" hidden>
+    <h3>2 色の出方</h3>
+    <p>フィラメントは押し出し機の中で回らないので、色の分かれ目はプリンターに対して向きが固定されます。面の向きで色が決まり、上面には 2 色が半分ずつ出ます。この表では、分かれ目を前後に向けた場合（手前を向いた壁が色 1、奥を向いた壁が色 2）を描きました。溝は左右に走っているので、手前から見える壁はほぼ色 1、鏡の中に映る壁はほぼ色 2 になります。</p>
+    <p>実際に刷るときは、フィラメントの 2 色の境目が前後に向くように差し込みます。押し出し機の中で少しねじれることがあるので、小片で向きを確かめてから本番を刷ってください（未確認）。</p>
+    <h3>指標</h3>
+    <ul>
+      <li><b>赤富士の強さ・少女の強さ</b>：手前（鏡の中）の像を、赤富士と少女の像で回帰したときの、自分の絵の係数。1 前後ならはっきり見え、0 に近いと消えます。</li>
+      <li><b>相手の絵の混ざり</b>：同じ回帰の相手の絵の係数の大きさ（2 つの側の大きいほう）。手本は、試し刷りで成功したデザートタンが <span class="num" id="mg"></span>、失敗した Silk ブルーが <span class="num" id="mb"></span> です。</li>
+      <li><b>2 色の明るさの差 ΔL*</b>：色 1 − 色 2。上面は 2 色が半分ずつで中間の明るさになり、この錯視は壁が上面より暗いことで明暗を出します。明るいほうの色の壁は上面より明るくなるので、その側の絵は弱まります。差が大きいほど片方の絵が消えます。</li>
+    </ul>
+    <p><b>赤富士と少女の色の差 ΔE</b> は、手前と鏡の中の絵の部分の平均の色の差（CIE76）です。目安として 2 前後で気づき、10 を超えると別の色に見えます。</p>
+    <h3>色と透け</h3>
+    <p>Bambu Lab は Bambu Studio の色データにある公式の 2 色を使いました。ほかのメーカーは、販売ページに色コードがなければ色名から代表の色を当てています（表の「色の出どころ」）。2 色の製品で TD（光が通る目安の厚さ）を測った値は見つからないので、Silk の実測の中央値 1.7 を使っています。表面はどれも Silk として描きました。</p>
+    <h3>判定の線</h3>
+    <p id="thr"></p>
+  </section>
+</div>
+
+<script>
+const D={"rows":[["Bambu Lab","PLA Silk Dual Color","Gilded Rose（ギルディッド ローズ）","Orange gold","Rose","#FF9425","#C16784","Bambu Studio の色データ（公式）","https://jp.store.bambulab.com/products/pla-silk-dual-color","/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/filaments_color_codes.json","",[0.02,0.69,19.4,"warn","相手の絵がやや混ざる",0.87,1.04,16.5],0,0,"warn"],["Bambu Lab","PLA Silk Dual Color","Midnight Blaze（ミッドナイト ブレイズ）","Blue","Red","#0047BB","#7D1B49","Bambu Studio の色データ（公式）","https://jp.store.bambulab.com/products/pla-silk-dual-color","/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/filaments_color_codes.json","",[0.0592,0.79,18.0,"bad","相手の絵が混ざる",0.9,0.93,5.7],0,1,"bad"],["Bambu Lab","PLA Silk Dual Color","Neon City（ネオン シティ）","Blue","Magenta","#0047BB","#BB22A3","Bambu Studio の色データ（公式）","https://jp.store.bambulab.com/products/pla-silk-dual-color","/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/filaments_color_codes.json","",[0.0515,0.82,17.2,"bad","相手の絵が混ざる",1.06,0.85,-10.6],0,2,"bad"],["Bambu Lab","PLA Silk Dual Color","Blue Hawaii（ブルー ハワイ）","Blue","Green","#418FDE","#70C884","Bambu Studio の色データ（公式）","https://jp.store.bambulab.com/products/pla-silk-dual-color","/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/filaments_color_codes.json","",[0.0262,0.87,28.3,"bad","相手の絵が混ざる",1.1,0.76,-15.7],0,3,"bad"],["Bambu Lab","PLA Silk Dual Color","Velvet Eclipse (Black-Red)（ベルベット エクリプス（ブラック レッド））","Black","Red","#000000","#A34342","Bambu Studio の色データ（公式）","https://jp.store.bambulab.com/products/pla-silk-dual-color","/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/filaments_color_codes.json","",[0.0528,0.66,14.1,"bad","少女が消える（壁が上面より明るい）",1.05,0.1,-41.5],0,4,"bad"],["Bambu Lab","PLA Silk Dual Color","Mystic Magenta（ミスティック マゼンタ）","Magenta","Green","#720062","#3A913F","Bambu Studio の色データ（公式）","https://jp.store.bambulab.com/products/pla-silk-dual-color","/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/filaments_color_codes.json","",[0.0465,0.81,29.2,"bad","少女が消える（壁が上面より明るい）",1.09,0.38,-28.4],0,5,"bad"],["Bambu Lab","PLA Silk Dual Color","Phantom Blue（ファントム ブルー）","Blue","Black","#00629B","#000000","Bambu Studio の色データ（公式）","https://jp.store.bambulab.com/products/pla-silk-dual-color","/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/filaments_color_codes.json","",[0.0401,0.56,10.6,"bad","赤富士が消える（壁が上面より明るい）",0.29,1.07,39.8],0,6,"bad"],["ELEGOO","PLA シルク (Silk PLA)","シルク レッド＆グリーン (Silk Red & Green)","Red","Green","#C1302E","#3FA05A","色名からの推定","https://jp.elegoo.com/products/elegoo-silk-pla-filament-1-75mm-colored-1kg","https://jp.elegoo.com/products/elegoo-silk-pla-filament-1-75mm-colored-1kg.json","JP公式ストア 1kg (SKU SPJP-EL-3D-S02); 5kg版あり; Amazon.co.jp B0CPHRD7VX も同色",[0.0429,0.87,31.1,"bad","相手の絵が混ざる",1.09,0.56,-15.2],0,7,"bad"],["ELEGOO","PLA シルク (Silk PLA)","シルクブルー＆パープル (Silk Blue & Purple)","Blue","Purple","#2A62C0","#7B3FA6","色名からの推定","https://jp.elegoo.com/products/elegoo-silk-pla-filament-1-75mm-colored-1kg","https://jp.elegoo.com/products/elegoo-silk-pla-filament-1-75mm-colored-1kg.json","JP公式ストア 1kg (SKU SPJP-EL-PLA-115N); 5kg版あり",[0.0514,0.89,8.6,"bad","相手の絵が混ざる",0.84,0.64,4.1],0,8,"bad"],["ELEGOO","PLA シルク (Silk PLA)","シルクブルー＆グリーン＆オレンジ (Silk Blue & Green & Orange)","Blue","Green","#2A62C0","#3FA05A","色名からの推定","https://jp.elegoo.com/products/elegoo-silk-pla-filament-1-75mm-colored-1kg","https://jp.elegoo.com/products/elegoo-silk-pla-filament-1-75mm-colored-1kg.json","JP公式ストア 1kg (SKU SPJP-EL-PLA-121); 3色共押出; 5kg版あり；3 色の製品。表では最初の 2 色で描いた",[0.0425,0.88,31.1,"bad","少女が消える（壁が上面より明るい）",1.07,0.47,-16.1],0,9,"bad"],["eSUN","ePLA-Silk Magic","Rose Red Blue","Rose Red","Blue","#C9637E","#2A62C0","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0357,0.83,20.7,"bad","相手の絵が混ざる",0.81,0.92,12.1],0,10,"bad"],["eSUN","ePLA-Silk Magic","Gold Silver","Gold","Silver","#D4A63A","#BFC3C7","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0227,0.84,18.1,"bad","相手の絵が混ざる",1.08,0.85,-8.0],0,11,"bad"],["eSUN","ePLA-Silk Magic","Green Blue","Green","Blue","#3FA05A","#2A62C0","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0302,0.79,30.6,"bad","相手の絵が混ざる",0.58,0.96,16.1],0,12,"bad"],["eSUN","ePLA-Silk Magic","Black Gold","Black","Gold","#2A2A2A","#D4A63A","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0327,0.73,21.2,"bad","少女が消える（壁が上面より明るい）",1.11,0.04,-53.5],0,13,"bad"],["eSUN","ePLA-Silk Magic","Black Red","Black","Red","#2A2A2A","#C1302E","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0435,0.8,19.3,"bad","少女が消える（壁が上面より明るい）",1.07,0.37,-26.7],0,14,"bad"],["eSUN","ePLA-Silk Magic","Black Green","Black","Green","#2A2A2A","#3FA05A","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0457,0.77,17.6,"bad","少女が消える（壁が上面より明るい）",1.1,0.11,-41.9],0,15,"bad"],["eSUN","ePLA-Silk Magic","Red Gold","Red","Gold","#C1302E","#D4A63A","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0275,0.83,18.8,"bad","少女が消える（壁が上面より明るい）",1.11,0.3,-26.9],0,16,"bad"],["eSUN","ePLA-Silk Magic","Purple Gold","Purple","Gold","#7B3FA6","#D4A63A","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0321,0.85,32.9,"bad","少女が消える（壁が上面より明るい）",1.1,0.3,-31.8],0,17,"bad"],["eSUN","ePLA-Silk Magic","Red Green","Red","Green","#C1302E","#3FA05A","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0429,0.87,31.1,"bad","相手の絵が混ざる",1.09,0.56,-15.2],0,18,"bad"],["eSUN","ePLA-Silk Magic","Blue Silver","Blue","Silver","#2A62C0","#BFC3C7","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.025,0.81,20.9,"bad","少女が消える（壁が上面より明るい）",1.11,0.24,-35.8],0,19,"bad"],["eSUN","ePLA-Silk Magic","Black Purple","Black","Purple","#2A2A2A","#7B3FA6","色名からの推定","https://www.amazon.co.jp/dp/B0B48C59DS","https://www.esun3d.com/ja/esilk-pla-magic-product/","Amazon.co.jp で確認できたのは Gold Silver の出品（在庫は変動）。色の一覧は eSUN の日本語ページ",[0.0699,0.82,17.0,"bad","少女が消える（壁が上面より明るい）",1.05,0.26,-21.7],0,20,"bad"],["CC3D","Silk Dual PLA","Silk Black/Gold","Black","Gold","#2A2A2A","#D4A63A","色名からの推定","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","Amazon.co.jp の CC3D ストア（シルク PLA）",[0.0327,0.73,21.2,"bad","少女が消える（壁が上面より明るい）",1.11,0.04,-53.5],0,21,"bad"],["CC3D","Silk Dual PLA","Silk Black/Green","Black","Green","#2A2A2A","#3FA05A","色名からの推定","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","Amazon.co.jp の CC3D ストア（シルク PLA）",[0.0457,0.77,17.6,"bad","少女が消える（壁が上面より明るい）",1.1,0.11,-41.9],0,22,"bad"],["CC3D","Silk Dual PLA","Silk Black/Red","Black","Red","#2A2A2A","#C1302E","色名からの推定","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","Amazon.co.jp の CC3D ストア（シルク PLA）",[0.0435,0.8,19.3,"bad","少女が消える（壁が上面より明るい）",1.07,0.37,-26.7],0,23,"bad"],["CC3D","Silk Dual PLA","Silk Gold/Purple","Gold","Purple","#D4A63A","#7B3FA6","色名からの推定","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","Amazon.co.jp の CC3D ストア（シルク PLA）",[0.0209,0.7,32.4,"bad","赤富士が消える（壁が上面より明るい）",0.28,1.05,31.8],0,24,"bad"],["CC3D","Silk Dual PLA","Silk Rose/Blue","Rose","Blue","#C9637E","#2A62C0","色名からの推定","https://www.amazon.co.jp/dp/B0CM99VDFQ","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","Amazon.co.jp の CC3D ストア（シルク PLA）",[0.0357,0.83,20.7,"bad","相手の絵が混ざる",0.81,0.92,12.1],0,25,"bad"],["CC3D","Silk Dual PLA","Silk Rose/Green","Rose","Green","#C9637E","#3FA05A","色名からの推定","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","Amazon.co.jp の CC3D ストア（シルク PLA）",[0.0439,0.88,28.0,"bad","相手の絵が混ざる",1.05,0.75,-4.0],0,26,"bad"],["CC3D","Silk Dual PLA","Silk Blue/Green","Blue","Green","#2A62C0","#3FA05A","色名からの推定","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8","Amazon.co.jp の CC3D ストア（シルク PLA）",[0.0425,0.88,31.1,"bad","少女が消える（壁が上面より明るい）",1.07,0.47,-16.1],0,27,"bad"],["CC3D","Silk Tri PLA","Silk Black/Red/Gold","Black","Red","#2A2A2A","#C1302E","色名からの推定","https://www.amazon.co.jp/dp/B0CMH68H17","https://www.amazon.co.jp/dp/B0CMH68H17","Amazon.co.jp；3 色の製品。表では最初の 2 色で描いた",[0.0435,0.8,19.3,"bad","少女が消える（壁が上面より明るい）",1.07,0.37,-26.7],0,28,"bad"],["TECSONAR","シルクデュアルカラー PLA","シルクブルー ローズレッド","Blue","Rose Red","#2A62C0","#C9637E","色名からの推定","https://www.amazon.co.jp/dp/B0B63F249Q","https://www.amazon.co.jp/dp/B0B63F249Q","Amazon.co.jp",[0.0463,0.9,21.4,"bad","相手の絵が混ざる",1.06,0.61,-12.1],0,29,"bad"],["Geeetech","Dual Color Silk PLA","ゴールドと銅","Gold","Copper","#D4A63A","#B0643A","色名からの推定","https://ja.geekbuying.com/item/Geeetech-Dual-Color-Silk-PLA-Filament-Gold-and-Copper-523238.html","https://ja.geekbuying.com/item/Geeetech-Dual-Color-Silk-PLA-Filament-Gold-and-Copper-523238.html","geekbuying の日本語サイト（海外発送）。Amazon.co.jp では未確認",[0.0199,0.73,11.5,"warn","赤富士がやや弱い",0.55,1.02,20.3],0,30,"warn"]],"makers":[["Bambu Lab","PLA Silk Dual Color",7,"https://jp.store.bambulab.com/products/pla-silk-dual-color"],["CC3D","Silk Dual PLA",7,"https://www.amazon.co.jp/stores/CC3D/%E3%82%B7%E3%83%AB%E3%82%AFPLA/page/E7FF8B0E-EAB3-4FBE-B772-5CE301149CA8"],["CC3D","Silk Tri PLA",1,"https://www.amazon.co.jp/dp/B0CMH68H17"],["ELEGOO","PLA シルク (Silk PLA)",3,"https://jp.elegoo.com/products/elegoo-silk-pla-filament-1-75mm-colored-1kg"],["Geeetech","Dual Color Silk PLA",1,"https://ja.geekbuying.com/item/Geeetech-Dual-Color-Silk-PLA-Filament-Gold-and-Copper-523238.html"],["TECSONAR","シルクデュアルカラー PLA",1,"https://www.amazon.co.jp/dp/B0B63F249Q"],["eSUN","ePLA-Silk Magic",11,"https://www.amazon.co.jp/dp/B0B48C59DS"]],"unverified":[["SUNLU","Silk Dual Color PLA","Pink Gold, Black Blue, Red Blue, Red Gold, Black Purple, Blue Green","Amazon.com と公式ストアでのみ確認。Amazon.co.jp の出品は見つからなかった","https://www.amazon.com/SUNLU-Dual-Color-Filament-Printer/dp/B0FPPKD71V"],["ERYONE","Silk Dual Color PLA","Black Gold, Blue Green など","Amazon.com でのみ確認","https://www.amazon.com/ERYONE-Filament-Printer-0-03mm-Coextrusion/dp/B09X2MBB3B"],["Kingroon","Silk Dual-Color PLA","（公式ストア）","公式ストアでのみ確認。Amazon.co.jp の Kingroon は単色品","https://kingroon.com/products/kingroon-silk-daul-color-pla"],["Geeetech","Silk Dual-Color PLA（Black Red・Red Green など）","Black Red, Red Green","Amazon.com でのみ確認","https://www.amazon.com/Geeetech-Coextrusion-Dichromatic-Metal-Like-Dimensional/dp/B0CZ725BYM"]],"counts":{"good":0,"warn":2,"bad":29},"nbrands":6,"thresholds":{"mix_ok":0.668,"mix_warn":0.742,"own_ok":0.8,"own_warn":0.5,"anchor_good":[1.06,1.09,0.59],"anchor_bad":[1.04,0.93,0.82]}};
+const V={good:"良",warn:"注意",bad:"不可"},ORDER={good:0,warn:1,bad:2};
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const R=D.rows; // [brand,product,variant,c1,c2,hex1,hex2,hexsrc,japan,source,notes, fb:[c,l,dE,v,why], sheet,cell,verdict]
+$("#summary").innerHTML=`<div class="stat"><b>${R.length}</b><span>色（${D.nbrands} メーカー）</span></div>`+["good","warn","bad"].map(k=>`<div class="stat ${k}"><b>${D.counts[k]}</b><span>${V[k]}</span></div>`).join("");
+const t=D.thresholds;
+$("#thr").innerHTML=`良：弱いほうの絵の強さ ≥ <span class="num">${t.own_ok}</span> かつ 相手の絵の混ざり ≤ <span class="num">${t.mix_ok}</span>。注意：強さ ≥ <span class="num">${t.own_warn}</span> かつ 混ざり ≤ <span class="num">${t.mix_warn}</span>。それ以外は不可。混ざりの線は、2 つの手本の間の 1/3・2/3 です。表面はどれも Silk で、Silk は再現のつやが実物より弱いので、良と出ても小片で確かめてください。`;
+$("#mg").textContent=t.anchor_good[2]; $("#mb").textContent=t.anchor_bad[2];
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));
+  document.querySelectorAll(".panel-sec").forEach(s=>s.hidden=s.id!=="p-"+b.dataset.tab);}));
+const st={q:"",brand:"",sort:"v"};
+$("#brand").innerHTML=`<option value="">すべて</option>`+[...new Set(R.map(r=>r[0]))].sort().map(b=>`<option>${esc(b)}</option>`).join("");
+$("#q").addEventListener("input",e=>{st.q=e.target.value.toLowerCase();draw()});
+$("#brand").addEventListener("change",e=>{st.brand=e.target.value;draw()});
+$("#sort").addEventListener("change",e=>{st.sort=e.target.value;draw()});
+function pair(r){const c=r[13];
+  return `<span class="thumb" role="img" aria-label="${esc(r[2])} の再現" style="background-image:url(sprites/sheet_${String(r[12]).padStart(2,"0")}.jpg);background-position:-${(c%10)*112}px -${Math.floor(c/10)*56}px"></span>`;}
+function draw(){
+  let xs=R.filter(r=>(!st.brand||r[0]===st.brand)&&(!st.q||(r.slice(0,5).join(" ")).toLowerCase().includes(st.q)));
+  const k=st.sort;
+  const w=r=>Math.min(r[11][5],r[11][6]);
+  xs.sort((a,b)=>k==="v"?(ORDER[a[14]]-ORDER[b[14]]||w(b)-w(a)):k==="c"?w(b)-w(a):k==="l"?a[11][1]-b[11][1]:k==="d"?Math.abs(a[11][7])-Math.abs(b[11][7]):k==="e"?b[11][2]-a[11][2]:a[0].localeCompare(b[0]));
+  $("#count").textContent=`${xs.length} 色`;
+  $("#tb").innerHTML=xs.map(r=>`<tr class="v-${r[14]}">
+    <td><span class="pill ${r[14]}">${V[r[14]]}</span><span class="why">${esc(r[11][4])}</span></td>
+    <td>${pair(r)}</td>
+    <td><span class="chips2"><span class="sw" style="background:${r[5]}" title="${esc(r[3])} ${r[5]}"></span><span class="sw" style="background:${r[6]}" title="${esc(r[4])} ${r[6]}"></span></span></td>
+    <td><span class="maker">${esc(r[0])}</span><span class="sub">${esc(r[1])}</span></td>
+    <td>${esc(r[2])}<span class="sub">${esc(r[3])} ／ ${esc(r[4])}</span>${r[10]?`<span class="sub">${esc(r[10])}</span>`:""}</td>
+    <td class="n">${r[11][5].toFixed(2)}</td>
+    <td class="n">${r[11][6].toFixed(2)}</td>
+    <td class="n">${r[11][1].toFixed(2)}</td>
+    <td class="n">${r[11][7].toFixed(1)}</td>
+    <td class="n">${r[11][2].toFixed(1)}</td>
+    <td>${esc(r[7])}</td>
+    <td>${r[8]?`<a href="${esc(r[8])}" target="_blank" rel="noopener">日本の販売</a>`:""}${r[9]&&r[9].startsWith("http")?` · <a href="${esc(r[9])}" target="_blank" rel="noopener">色の資料</a>`:""}</td></tr>`).join("");
+}
+draw();
+$("#tu").innerHTML=D.unverified.map(u=>`<tr><td class="maker">${esc(u[0])}</td><td>${esc(u[1])}</td><td>${esc(u[2])}</td><td><a href="${esc(u[4])}" target="_blank" rel="noopener">${esc(u[3])}</a></td></tr>`).join("");
+$("#tm").innerHTML=D.makers.map(m=>`<tr><td class="maker">${esc(m[0])}</td><td>${esc(m[1])}</td><td class="n">${m[2]}</td><td>${m[3]?`<a href="${esc(m[3])}" target="_blank" rel="noopener">${esc(m[3].replace(/^https?:\/\//,"").slice(0,48))}</a>`:""}</td></tr>`).join("");
+</script>
+
+</body>
+</html>
