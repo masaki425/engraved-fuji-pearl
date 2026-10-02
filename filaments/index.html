@@ -54,8 +54,9 @@ th[data-k]{cursor:pointer} th[data-k]:hover{color:var(--ink)}
 td.n{font-family:var(--font-data);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 tr.v-good td:first-child{box-shadow:inset 3px 0 0 var(--good)} tr.v-warn td:first-child{box-shadow:inset 3px 0 0 var(--warn)} tr.v-bad td:first-child{box-shadow:inset 3px 0 0 var(--bad)}
 .sw{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:inline-block;vertical-align:middle}
-.thumb{width:112px;height:56px;background-repeat:no-repeat;background-size:1120px 560px;border-radius:3px;cursor:zoom-in;display:block}
-.thumb.big{width:256px;height:128px;background-size:2560px 1280px;cursor:zoom-out}
+.thumb{width:112px;height:56px;background-repeat:no-repeat;background-size:1120px 560px;border-radius:3px;cursor:zoom-in;display:block;position:relative;transform-origin:left center}
+/* カーソルを当てる（スマートフォンではタップ）と 2.3 倍に拡大。元の画像は 1 枚 128 px なので、ほぼ原寸 */
+.thumb:hover,.thumb:focus{transform:scale(2.3);z-index:5;box-shadow:0 6px 24px rgba(0,0,0,.35);outline:none}
 .pill{display:inline-block;font-size:.78rem;border-radius:3px;padding:1px 8px;white-space:nowrap}
 .pill.good{background:var(--good-bg);color:var(--good)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)}
 .why{display:block;font-size:.75rem;color:var(--muted)}
@@ -70,7 +71,7 @@ a{color:var(--accent)}
 .prose h3{margin:8px 0 0;font-size:1rem}
 .prose p,.prose li{margin:0}
 .prose code{font-family:var(--font-data);font-size:.85em}
-@media (prefers-reduced-motion:no-preference){.thumb{transition:width .15s,height .15s}}
+@media (prefers-reduced-motion:no-preference){.thumb{transition:transform .15s,box-shadow .15s}}
 .back{margin:0;font-size:.9rem}
 </style>
 </head>
@@ -169,7 +170,7 @@ $("#fin").addEventListener("change",e=>{st.fin=e.target.value;st.page=0;draw()})
 $("#sort").addEventListener("change",e=>{st.sort=e.target.value;st.page=0;draw()});
 const PER=100;
 function thumb(r,big){const s=big?256:112,h=s/2,c=r[14];
-  return `<span class="thumb${big?" big":""}" role="img" aria-label="${esc(r[2])} の再現" style="background-image:url(sprites/sheet_${String(r[13]).padStart(2,"0")}.jpg);background-position:-${(c%10)*s}px -${Math.floor(c/10)*h}px"></span>`;}
+  return `<span class="thumb${big?" big":""}" tabindex="0" role="img" aria-label="${esc(r[2])} の再現" style="background-image:url(sprites/sheet_${String(r[13]).padStart(2,"0")}.jpg);background-position:-${(c%10)*s}px -${Math.floor(c/10)*h}px"></span>`;}
 function draw(){
   let xs=R.filter(r=>st.v.has(r[11])&&(!st.mat||r[5]===st.mat)&&(!st.fin||r[4]===st.fin)&&
     (!st.q||(r[0]+" "+r[1]+" "+r[2]).toLowerCase().includes(st.q)));
@@ -191,10 +192,6 @@ function draw(){
   $("#prev")?.addEventListener("click",()=>{st.page--;draw();$("#count").scrollIntoView()});
   $("#next")?.addEventListener("click",()=>{st.page++;draw();$("#count").scrollIntoView()});
 }
-$("#tb").addEventListener("click",e=>{const t=e.target.closest(".thumb"); if(!t)return;
-  const big=!t.classList.contains("big"),s=big?256:112,h=s/2; const m=t.style.backgroundPosition.match(/-?([\d.]+)px -?([\d.]+)px/);
-  const os=big?112:256,oh=os/2,col=Math.round(m[1]/os),row=Math.round(m[2]/oh);
-  t.classList.toggle("big",big); t.style.backgroundPosition=`-${col*s}px -${row*h}px`;});
 draw();
 $("#tj").innerHTML=D.japan.map(j=>`<tr><td class="maker">${esc(j[0])}</td><td>${esc(j[1])}</td><td>${esc(j[2])}</td><td class="n">${j[4]?j[6]:"―"}</td><td class="n">${j[4]?j[5]:"―"}</td><td><a href="${esc(j[3])}" target="_blank" rel="noopener">資料</a></td></tr>`).join("");
 </script>
